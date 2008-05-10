@@ -1,0 +1,24 @@
+#!c:/ruby/bin/ruby
+#
+
+usage = <<USAGE
+Generate the templette framework.
+Usage: templette <directory>
+--help gets you this help message
+USAGE
+
+require 'fileutils'
+
+new_dir = ARGV.first
+
+if new_dir.nil? || new_dir.empty?
+	puts usage
+	exit(0)
+end
+
+FileUtils.mkdir(new_dir) unless File.exists?(new_dir)
+%w{/pages /templates}.each do |dir|
+	FileUtils.mkdir(new_dir + dir) unless File.exists?(new_dir + dir)
+end
+
+#FileUtils.cp('generator_files/Rakefile', new_dir + '/Rakefile')
