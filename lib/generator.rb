@@ -3,7 +3,7 @@ require 'page'
 require 'fileutils'
 
 class Generator
-  def initialize(out_dir)
+  def initialize(out_dir = 'out')
     @out_dir = out_dir
   end
   

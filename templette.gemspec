@@ -1,25 +1,23 @@
 require 'rake'
 
-Gem::Specification.new do |spec|
+Gem::Specification.new do |s|
 
-        spec.name = 'templette'
-        spec.author = "Jacob Dunphy and Steve Holder"
-        spec.version = '0.2'
-        spec.summary = 'HTML site generation through templates'
-        
-        spec.files = FileList['lib/*.rb'].to_a
-        spec.require_path = 'lib'
-        spec.autorequire = 'generator'
-        
-        spec.description = <<-EOF
-                HTML site generation through templates
-        EOF
-        
-        spec.executables = ['templette']
-        spec.default_executable = 'templette'
-        
-        spec.email = 'jacob.dunphy@gmail.com'
-        
-        spec.has_rdoc = false
-        
+  s.name = 'templette'
+  s.author = "Jacob Dunphy and Steve Holder"
+  s.version = '0.2.1'
+  s.summary = 'HTML site generation through templates'
+  
+  s.files = FileList['lib/*.rb', 'bin/*'].to_a
+  s.autorequire = %q{generator}
+  
+  s.description = <<-EOF
+          HTML site generation through templates
+  EOF
+  
+  s.executables = ['templette']
+  s.default_executable = 'templette'
+  
+  s.email = 'jacob.dunphy@gmail.com'
+  
+  s.has_rdoc = false
 end
