@@ -10,7 +10,7 @@ module Templette
       pages = Page.find
       puts "Generating site to: #{@out_dir}; contains #{pages.size} pages"
       pages.each do |page|
-        puts "Generating page #{out_file} using template #{template.name}"
+        puts "Generating page #{page.name} using template #{page.template.name}"
         page.generate(@out_dir)
       end
     end

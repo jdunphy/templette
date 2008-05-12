@@ -6,6 +6,7 @@ PAGES_DIR = 'pages'
 module Templette
 
   class Page < OpenStruct
+    attr_accessor :name, :template
   
     def self.find
       files = Dir["#{PAGES_DIR}/*.yml"]

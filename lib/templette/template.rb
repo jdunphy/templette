@@ -3,6 +3,7 @@ require 'yaml'
 TEMPLATE_DIR = 'templates'
 module Templette
   class Template
+    attr_accessor :name
     
     def initialize(name)
       @name = name

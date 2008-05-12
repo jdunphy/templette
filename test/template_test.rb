@@ -13,6 +13,6 @@ class TemplateTest < Test::Unit::TestCase
   
   def test_should_raise_exception_if_file_not_found
     t = Templette::Template.new('four-oh-four')
-    assert_raises(Templette::TemplateException) { t.to_html }
+    assert_raises(TemplateException) { t.to_html }
   end
 end
