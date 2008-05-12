@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.version = '0.2.1'
   s.summary = 'HTML site generation through templates'
   
-  s.files = FileList['lib/*.rb', 'bin/*'].to_a
-  s.autorequire = %q{generator}
+  s.files = FileList['lib/**/*.rb', 'bin/*'].to_a
+  s.autorequire = %q{templette}
   
   s.description = <<-EOF
           HTML site generation through templates
