@@ -13,6 +13,17 @@ class GeneratorTest  < Test::Unit::TestCase
     assert_match 'This is the content.', file_content
   end
   
+  def test_should_create_out_dir_if_doesnt_exist
+    out_dir = GEM_ROOT + '/nosuchdir'
+    assert !File.exist?(out_dir)
+    begin
+      Templette::Generator.new(out_dir).run
+      assert File.exist?(out_dir)
+    ensure
+      FileUtils.rm_rf(out_dir) if File.exist?(out_dir)
+    end
+  end
+  
   def teardown
     Dir.glob(GEM_ROOT + '/out/*').each do |f|
       FileUtils.rm(f)
