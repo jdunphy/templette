@@ -1,0 +1,11 @@
+sections:
+  title:
+    text: Home
+    image: /images/title.jpg
+  main:
+   content: file:./pages/index.html
+  inline:
+    title:
+      image: /images/whatever.jpg
+  image:
+    banner: /images/banner.jpg

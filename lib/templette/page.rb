@@ -15,8 +15,10 @@ module Templette
   
     def initialize(page_config)
       raise "missing page #{page_config}" unless File.exists?(page_config)
+      # TODO(sholder) is this legit?  Will YAML close the file when its done?
       data = YAML::load(File.open(page_config))
       @name = File.basename(page_config, '.yml')
+      raise "missing required section \"template_name\" for page config #{page_config}" unless data['template_name']
       @template = Template.new(data['template_name'])
 
       @table = {}

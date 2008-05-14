@@ -6,7 +6,7 @@ require GEM_ROOT + '/lib/templette'
 
 class PageTest < Test::Unit::TestCase
   
-  def test_init_bad_file
+  def test_init_no_such_file
     page = Templette::Page.new(PAGES_DIR + '/nosuchfile.yml')
     flunk 'never threw exception for missing file'
   rescue Exception => e
@@ -14,11 +14,19 @@ class PageTest < Test::Unit::TestCase
     assert_match 'missing page', e.message
   end
   
-   def test_find_pages
+  def test_init_page_config_missing_template_name
+    page = Templette::Page.new('test_data/missing_template_name.yml')
+    flunk 'never threw exception for missing required section'
+  rescue Exception => e
+    assert_match 'missing_template_name.yml', e.message
+    assert_match '"template_name"', e.message
+  end
+  
+  def test_find_pages
      pages = Templette::Page.find
      assert_equal 1, pages.length
      assert_equal 'Home', pages.first.title.text
-   end
+  end
   
   def test_generate_page
     FileUtils.mkdir('out') unless File.exists?('out')
