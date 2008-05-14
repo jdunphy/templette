@@ -22,6 +22,21 @@ class PageTest < Test::Unit::TestCase
     assert_match '"template_name"', e.message
   end
   
+  def test_init_page_missing_sections
+    page = Templette::Page.new('test_data/missing_sections.yml')
+    flunk 'never threw exception for missing required sections'
+  rescue Exception => e
+    assert_match 'missing_sections.yml', e.message
+    assert_match 'missing sections', e.message
+  end
+  
+  def test_init_page_invalid_yml
+    page = Templette::Page.new('test_data/bad_config.xml')
+    flunk 'never threw exception for a non-yml file'
+  rescue Exception => e
+    assert_match 'bad_config.xml', e.message
+  end
+  
   def test_find_pages
      pages = Templette::Page.find
      assert_equal 1, pages.length

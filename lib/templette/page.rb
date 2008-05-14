@@ -21,6 +21,7 @@ module Templette
       raise "missing required section \"template_name\" for page config #{page_config}" unless data['template_name']
       @template = Template.new(data['template_name'])
 
+      raise "missing sections in yml for page config #{page_config}" unless data['sections']
       @table = {}
       data['sections'].each_pair do |k,v|
         v = Section.new(v) if v.kind_of?(Hash)
