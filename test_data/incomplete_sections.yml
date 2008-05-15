@@ -1,0 +1,4 @@
+template_name: main
+sections:
+  title:
+    text: Home
