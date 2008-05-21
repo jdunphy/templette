@@ -1,4 +1,4 @@
-#!c:/ruby/bin/ruby
+#!/usr/bin/ruby
 #
 
 usage = <<USAGE
