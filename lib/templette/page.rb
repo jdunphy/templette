@@ -59,10 +59,6 @@ module Templette
       end
     end 
   end   
-  
-
-  class PageException < Exception
-
-  end     
+    
 end
 
