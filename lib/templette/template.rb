@@ -19,7 +19,4 @@ module Templette
         "#{TEMPLATE_DIR}/#{@name}.html"
       end
   end
-
-  class TemplateException < Exception
-  end
 end

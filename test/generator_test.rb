@@ -4,6 +4,7 @@ require 'test/unit'
 require 'fileutils'
 require GEM_ROOT + '/lib/templette'
 
+
 class GeneratorTest  < Test::Unit::TestCase
   def test_should_generate_html_in_out_dir
     Templette::Generator.new.run
@@ -24,9 +25,36 @@ class GeneratorTest  < Test::Unit::TestCase
     end
   end
   
+  def test_should_print_success_message
+    assert_match "Site generation complete!", capture_stdout { Templette::Generator.new.run }.string
+  end
+  
+  def test_should_handle_errors_nicely    
+    FileUtils.cp(GEM_ROOT + '/test_data/incomplete_sections.yml', GEM_ROOT + '/pages/incomplete_sections.yml')
+    out = capture_stdout { Templette::Generator.new.run }
+    assert_match "SITE GENERATED WITH ERRORS!", out.string
+    assert_match " * No method 'image' defined in the yaml", out.string
+  ensure
+    FileUtils.rm(GEM_ROOT + '/pages/incomplete_sections.yml')
+  end
+  
   def teardown
     Dir.glob(GEM_ROOT + '/out/*').each do |f|
       FileUtils.rm(f)
     end
+    FileUtils.rm_rf(GEM_ROOT + '/out') if File.exist?(GEM_ROOT + '/out')
   end
+  
+  private
+    def capture_stdout  #copied out of ZenTest and reduced
+      require 'stringio'
+      orig_stdout = $stdout.dup
+      captured_stdout = StringIO.new
+      $stdout = captured_stdout
+      yield
+      captured_stdout.rewind
+      return captured_stdout
+    ensure
+      $stdout = orig_stdout
+    end  
 end
