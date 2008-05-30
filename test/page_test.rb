@@ -6,6 +6,7 @@ class PageTest < Test::Unit::TestCase
     page = Templette::Page.new(PAGES_DIR + '/nosuchfile.yml')
     flunk 'never threw exception for missing file'
   rescue Exception => e
+    assert e.kind_of?(Templette::PageError)
     assert_match 'nosuchfile.yml', e.message
     assert_match 'missing page', e.message
   end
@@ -14,6 +15,7 @@ class PageTest < Test::Unit::TestCase
     page = Templette::Page.new('test_data/missing_template_name.yml')
     flunk 'never threw exception for missing required section'
   rescue Exception => e
+    assert e.kind_of?(Templette::PageError)
     assert_match 'missing_template_name.yml', e.message
     assert_match '"template_name"', e.message
   end
@@ -22,6 +24,7 @@ class PageTest < Test::Unit::TestCase
     page = Templette::Page.new('test_data/missing_sections.yml')
     flunk 'never threw exception for missing required sections'
   rescue Exception => e
+    assert e.kind_of?(Templette::PageError)
     assert_match 'missing_sections.yml', e.message
     assert_match 'missing sections', e.message
   end
@@ -30,6 +33,7 @@ class PageTest < Test::Unit::TestCase
     page = Templette::Page.new('test_data/bad_config.xml')
     flunk 'never threw exception for a non-yml file'
   rescue Exception => e
+    assert e.kind_of?(Templette::PageError)
     assert_match 'bad_config.xml', e.message
   end
   
