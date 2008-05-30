@@ -14,17 +14,17 @@ module Templette
     end
   
     def initialize(page_config)
-      raise "missing page #{page_config}" unless File.exists?(page_config)
+      raise PageError.new(self, "missing page #{page_config}") unless File.exists?(page_config)
       # TODO(sholder) is this legit?  Will YAML close the file when its done?
       data = YAML::load_file(page_config)
       @name = File.basename(page_config, '.yml')
-      raise "missing required section \"template_name\" for page config #{page_config}" unless data['template_name']
+      raise PageError.new(self, "missing required section \"template_name\" for page config #{page_config}")unless data['template_name']
       @template = Template.new(data['template_name'])
 
-      raise "missing sections in yml for page config #{page_config}" unless data['sections']
+      raise PageError.new(self, "missing sections in yml for page config #{page_config}") unless data['sections']
       @table = {}
       data['sections'].each_pair do |k,v|
-        v = Section.new(v) if v.kind_of?(Hash)
+        v = Section.new(self, v) if v.kind_of?(Hash)
         @table[k.to_sym] = v
         new_ostruct_member(k)
       end
@@ -41,11 +41,12 @@ module Templette
     end  
     
     class Section < OpenStruct
-      def initialize(hash={})
+      def initialize(page, hash={})
+        @page = page
         @table = {}
         for k,v in hash
           if v.kind_of?(Hash)
-            v = Section.new(v)
+            v = Section.new(@page, v)
           elsif v =~ /file:(.*)/
             v = File.open($1) {|f| f.read}
           end
@@ -55,7 +56,7 @@ module Templette
       end
       
       def method_missing(symbol)  
-        raise PageException.new("No method '#{symbol}' defined in the yaml")
+        raise PageError.new(@page, "No method '#{symbol}' defined in the yaml")
       end
     end 
   end   
