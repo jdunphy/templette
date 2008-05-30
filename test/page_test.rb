@@ -42,11 +42,11 @@ class PageTest < Test::Unit::TestCase
   def test_incomplete_yaml
     page = Templette::Page.new('test_data/incomplete_sections.yml')
     assert_not_nil page
-    assert_raises(Templette::PageException) { page.generate('out') }
+    assert_raises(Templette::PageError) { page.generate('out') }
     begin 
       page.generate('out')
-    rescue Templette::PageException => e
-      assert_equal "No method 'image' defined in the yaml", e.message
+    rescue Templette::PageError => e
+      assert_equal "PageError - incomplete_sections: No method 'image' defined in the yaml", e.message
     end
   end
   

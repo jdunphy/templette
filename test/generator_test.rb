@@ -28,7 +28,7 @@ class GeneratorTest < Test::Unit::TestCase
     FileUtils.cp(GEM_ROOT + '/test_data/incomplete_sections.yml', GEM_ROOT + '/pages/incomplete_sections.yml')
     output = capture_stdout { Templette::Generator.new.run }
     assert_match "SITE GENERATED WITH ERRORS!", output.string
-    assert_match " * No method 'image' defined in the yaml", output.string
+    assert_match "No method 'image' defined in the yaml", output.string
   ensure
     FileUtils.rm(GEM_ROOT + '/pages/incomplete_sections.yml')
   end

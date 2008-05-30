@@ -10,7 +10,7 @@ module Templette
     end
   
     def to_html
-      raise TemplateException.new("Template rendering failed.  File not found: #{@name}") unless File.exists?(path)
+      raise TemplateError.new("Template rendering failed.  File not found: #{@name}") unless File.exists?(path)
       File.read(path)
     end
 
