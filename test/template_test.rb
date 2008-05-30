@@ -1,8 +1,4 @@
-GEM_ROOT = File.expand_path(File.dirname(__FILE__) + "/../") unless defined?(GEM_ROOT)
-
-require 'test/unit'
-require GEM_ROOT + '/lib/templette'
-require 'fileutils'
+require File.expand_path(File.dirname(__FILE__) + '/test_helper.rb')
 
 class TemplateTest < Test::Unit::TestCase
   
