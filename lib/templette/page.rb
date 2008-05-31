@@ -22,11 +22,6 @@ module Templette
 
       raise PageError.new(self, "missing sections in yml for page config #{page_config}") unless data['sections']
       data['sections'].each_pair do |k,v|
-        if v.kind_of?(Hash)
-          v = Section.new(self, v)
-        elsif v =~ /file:(.*)/
-          v = File.open($1) {|f| f.read}
-        end
         generate_accessor(k, v)
       end
     end
@@ -39,22 +34,23 @@ module Templette
       File.open(output_file_name(out_dir), 'w') do |f| 
         f << ERB.new(@template.to_html, 0, "%<>").result(binding)
       end
-    end   
+    end  
+    
+    def page 
+      self
+    end
     
     class Section
       include Templette::DataAccessors
+      attr_accessor :page
       
       def initialize(page, hash={})
         @page = page
         for k,v in hash
-          if v.kind_of?(Hash)
-            v = Section.new(@page, v)
-          elsif v =~ /file:(.*)/
-            v = File.open($1) {|f| f.read}
-          end
           generate_accessor(k, v)
         end
       end
+      
     end 
   end   
     
