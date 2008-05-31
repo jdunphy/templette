@@ -1,3 +1,3 @@
-%w{generator page template errors}.each do |file|
+%w{data_accessors errors generator page template}.each do |file|
   require File.dirname(__FILE__) +"/templette/#{file}"
 end

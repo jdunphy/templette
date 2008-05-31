@@ -54,6 +54,13 @@ class PageTest < Test::Unit::TestCase
     end
   end
   
+  def test_initialization_loads_sections_and_creates_methods
+    page = Templette::Page.new(PAGES_DIR + '/index.yml')
+    assert_equal 'Home', page.title.text
+    assert_equal 'Home', page.title.text
+    assert_equal '/images/whatever.jpg', page.inline.title.image
+  end
+  
   def test_generate_page
     FileUtils.mkdir('out') unless File.exists?('out')
     output_file = 'out/index.html'
