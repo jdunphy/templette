@@ -1,0 +1,20 @@
+= Templette 0.2.1
+
+A Ruby static HTML templating gem.
+
+== Why?
+
+Templette was created to help make creating static websites easy.  It provides a (hopefully) simple structure of pages, templates and helpers.  Templates are the universal page layouts.  Pages are the unique content of a page.
+
+This is the worst readme ever.
+
+
+== Use me
+
+templette <site-name>
+
+Generates a site folder.
+
+rake build
+
+Generates the full documents in an 'out' folder in the site root.
