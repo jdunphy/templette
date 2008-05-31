@@ -6,7 +6,7 @@ module Templette
 
   class Page
     include Templette::DataAccessors
-    attr_accessor :name, :default_template_name
+    attr_accessor :name, :template
   
     def self.find
       Dir["#{PAGES_DIR}/*.yml"].map {|f| Page.new(f) }
@@ -18,23 +18,23 @@ module Templette
       data = YAML::load_file(page_config)
       @name = File.basename(page_config, '.yml')
       raise PageError.new(self, "missing required section \"template_name\" for page config #{page_config}") unless data['template_name']
-      @default_template_name = data['template_name']
+      @template = Template.new(data['template_name'])
 
       raise PageError.new(self, "missing sections in yml for page config #{page_config}") unless data['sections']
       data['sections'].each_pair do |k,v|
         generate_accessor(k, v)
       end
       
-      @helper_module_name = "#{@name.capitalize}Helper"            
+      @helper_module_name = "#{@template.name.capitalize}Helper"            
     end
   
     def output_file_name(out_dir)
       "#{out_dir}/#{@name}.html"
     end
   
-    def generate(out_dir, template = Template.new(@default_template_name))
+    def generate(out_dir)
       File.open(output_file_name(out_dir), 'w') do |f| 
-        f << ERB.new(template.to_html, 0, "%<>").result(binding)
+        f << ERB.new(@template.to_html, 0, "%<>").result(binding)
       end
     end
     
