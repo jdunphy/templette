@@ -5,6 +5,7 @@ module Templette
     end
         
     def generate_accessor(k, v)
+      raise TempletteError.new(page, "Method already defined: #{k}.  Change your config file and stop using it!") if self.methods.include?(k.to_s)
       if v.kind_of?(Hash)
         v = Page::Section.new(page, v)
       elsif v =~ /file:(.*)/

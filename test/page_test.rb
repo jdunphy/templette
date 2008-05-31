@@ -37,6 +37,11 @@ class PageTest < Test::Unit::TestCase
     assert_match 'bad_config.xml', e.message
   end
   
+  def test_error_is_raised_on_an_illegal_method_in_config
+    assert_raises(Templette::TempletteError) { Templette::Page.new('test_data/illegal_method.yml') }
+    
+  end
+  
   def test_find_pages
      pages = Templette::Page.find
      assert_equal 1, pages.length
