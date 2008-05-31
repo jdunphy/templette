@@ -89,12 +89,12 @@ class PageTest < Test::Unit::TestCase
     begin
       template = Templette::Template.new('dynamic')
       page = Templette::Page.new(PAGES_DIR + '/index.yml')
-      page.generate('out')
+      page.generate('out', template)
       assert File.exists?(output_file), 'output file was not generated'
       #should contain content from generated from method calls
       file_content = File.open(output_file) {|f| f.read}
-      assert IndexHelper.was_method_called?
       assert_match expected_content, file_content
+      assert IndexHelper.was_method_called?
     ensure
       File.delete(output_file) if File.exists?(output_file)
     end

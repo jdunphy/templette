@@ -4,10 +4,9 @@ module IndexHelper
     @return_val = return_val
   end
   
-  def curr_date
-    puts 'called!'
-    @@method_called = true
-    @@return_val
+  def self.curr_date
+    @method_called = true
+    @return_val
   end
   
   def self.was_method_called?

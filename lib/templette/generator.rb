@@ -11,7 +11,7 @@ module Templette
       pages = Page.find
       puts "Generating site to: #{@out_dir}; contains #{pages.size} pages"
       pages.each do |page|
-        puts "Generating page #{page.name} using template #{page.template.name}"
+        puts "Generating page #{page.name} using template #{page.default_template_name}"
         begin
           page.generate(@out_dir)
         rescue Templette::TempletteError => e
