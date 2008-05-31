@@ -9,8 +9,7 @@ module Templette
     attr_accessor :name, :template
   
     def self.find
-      files = Dir["#{PAGES_DIR}/*.yml"]
-      files.map {|f| Page.new(f) }
+      Dir["#{PAGES_DIR}/*.yml"].map {|f| Page.new(f) }
     end
   
     def initialize(page_config)

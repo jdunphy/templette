@@ -22,7 +22,7 @@ module Templette
         puts "Site generation complete!"
       else
         puts "SITE GENERATED WITH ERRORS!"
-        @errors.each { |e| puts " * #{e.message}" }
+        @errors.each { |e| puts "#{e.message}" }
       end 
     end
   end
