@@ -1,11 +1,13 @@
 module IndexHelper
-  def self.init
+  def self.init(return_val = Time.now)
     @method_called = false
+    @return_val = return_val
   end
   
   def curr_date
+    puts 'called!'
     @@method_called = true
-    Time.now
+    @@return_val
   end
   
   def self.was_method_called?

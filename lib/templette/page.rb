@@ -28,6 +28,11 @@ module Templette
         @table[k.to_sym] = v
         new_ostruct_member(k)
       end
+      
+#      helper_module_name = "#{@name.capitalize}Helper"
+#      if(defined?(helper_module_name))
+#        class_eval {include helper_module_name.to_sym}
+#      end
     end
   
     def output_file_name(out_dir)
