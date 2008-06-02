@@ -39,7 +39,6 @@ class PageTest < Test::Unit::TestCase
   
   def test_error_is_raised_on_an_illegal_method_in_config
     assert_raises(Templette::TempletteError) { Templette::Page.new('test_data/illegal_method.yml') }
-    
   end
   
   def test_find_pages
@@ -69,20 +68,18 @@ class PageTest < Test::Unit::TestCase
   def test_generate_page
     FileUtils.mkdir('out') unless File.exists?('out')
     output_file = 'out/index.html'
-    begin
-      template = Templette::Template.new('main')
-      page = Templette::Page.new(PAGES_DIR + '/index.yml')
-      page.generate('out')
-      assert File.exists?(output_file), 'output file was not generated'
-      #should contain content from both the template and the page
-      file_content = File.open(output_file) {|f| f.read}
-      assert_match '<html>', file_content
-      assert_match '</html>', file_content
-      assert_match '<title>', file_content
-      assert_match '</title>', file_content
-      assert_match 'This is the content.', file_content
-    ensure
-      File.delete(output_file) if File.exists?(output_file)
-    end
+    template = Templette::Template.new('main')
+    page = Templette::Page.new(PAGES_DIR + '/index.yml')
+    page.generate('out')
+    assert File.exists?(output_file), 'output file was not generated'
+    #should contain content from both the template and the page
+    file_content = File.open(output_file) {|f| f.read}
+    assert_match '<html>', file_content
+    assert_match '</html>', file_content
+    assert_match '<title>', file_content
+    assert_match '</title>', file_content
+    assert_match 'This is the content.', file_content
+  ensure
+    File.delete(output_file) if File.exists?(output_file)
   end  
 end
