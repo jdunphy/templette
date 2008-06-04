@@ -1,4 +1,4 @@
-= Templette 0.2.1
+= Templette 0.2.2
 
 A Ruby static HTML templating gem.
 
@@ -17,4 +17,8 @@ Generates a site folder.
 
 rake build
 
-Generates the full documents in an 'out' folder in the site root.
+Generates the full documents in an 'out' folder in the site root.         
+
+== Helper support
+
+Automate content and avoid having to update transient information.  By default, a helper will automatically load a helper that shares its name.  Any methods loaded in the helper will be available to the template at build time.
