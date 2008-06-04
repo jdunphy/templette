@@ -17,7 +17,7 @@ if new_dir.nil? || new_dir.empty?
 end
 
 FileUtils.mkdir(new_dir) unless File.exists?(new_dir)
-%w{/pages /templates /tasks}.each do |dir|
+%w{/pages /templates /tasks /helpers}.each do |dir|
 	FileUtils.mkdir(new_dir + dir) unless File.exists?(new_dir + dir)
 end
 
