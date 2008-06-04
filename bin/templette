@@ -17,9 +17,8 @@ if new_dir.nil? || new_dir.empty?
 end
 
 FileUtils.mkdir(new_dir) unless File.exists?(new_dir)
-%w{/pages /templates /tasks /helpers}.each do |dir|
-	FileUtils.mkdir(new_dir + dir) unless File.exists?(new_dir + dir)
+%w{/pages /templates /helpers}.each do |dir|
+  FileUtils.mkdir(new_dir + dir) unless File.exists?(new_dir + dir)
 end
 
 FileUtils.cp(File.dirname(__FILE__) + '/Rakefile', new_dir + '/Rakefile')
-FileUtils.cp(File.dirname(__FILE__) + '/builder.rake', new_dir + '/tasks/builder.rake')
