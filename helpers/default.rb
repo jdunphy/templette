@@ -1,4 +1,4 @@
-module ApplicationHelper
+module DefaultHelper
   def self.init(return_val = Time.now)
     @method_called = false
     @return_val = return_val

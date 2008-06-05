@@ -49,10 +49,10 @@ module Templette
         if helper_module.respond_to?(symbol)
           return (args.length > 0 ? helper_module.send(symbol, args) : helper_module.send(symbol))
         end
-      rescue NameError
-        # try ApplicationHelper by default
-        if ApplicationHelper.respond_to?(symbol)
-          return (args.length > 0 ? ApplicationHelper.send(symbol, args) : ApplicationHelper.send(symbol))
+        rescue NameError
+        # try DefaultHelper by default
+        if DefaultHelper.respond_to?(symbol)
+          return (args.length > 0 ? DefaultHelper.send(symbol, args) : DefaultHelper.send(symbol))
         end
       end
       raise PageError.new(self, "No method '#{symbol}' defined in the yaml")
