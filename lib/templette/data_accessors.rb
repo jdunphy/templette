@@ -16,7 +16,7 @@ module Templette
     end
   
     def method_missing(symbol)        
-        raise PageError.new(@page, "No method '#{symbol}' defined in the yaml")
+        raise PageError.new(page, "No method '#{symbol}' defined in the yaml")
     end
   end
 end

@@ -25,7 +25,7 @@ module Templette
         generate_accessor(k, v)
       end
       
-      @helper_module_name = "#{@template.name.capitalize}Helper"            
+      @helper_module_name = "#{@template.name.capitalize}Helper"
     end
   
     def output_file_name(out_dir)
@@ -42,13 +42,20 @@ module Templette
       self
     end
     
-    def method_missing(symbol)
+    def method_missing(symbol, *args)
       #does Section also need to do something w/ method_missing?
-      if(defined?(@helper_module_name))
-        eval "#{@helper_module_name}.#{symbol}"
-      else
-        raise PageError.new(@page, "No method '#{symbol}' defined in the yaml")
+      begin
+        helper_module = Kernel.const_get("#{@helper_module_name}")
+        if helper_module.respond_to?(symbol)
+          return (args.length > 0 ? helper_module.send(symbol, args) : helper_module.send(symbol))
+        end
+      rescue NameError
+        # try ApplicationHelper by default
+        if ApplicationHelper.respond_to?(symbol)
+          return (args.length > 0 ? ApplicationHelper.send(symbol, args) : ApplicationHelper.send(symbol))
+        end
       end
+      raise PageError.new(self, "No method '#{symbol}' defined in the yaml")
     end
     
     class Section
