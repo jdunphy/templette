@@ -7,6 +7,7 @@ require GEM_ROOT + '/lib/templette'
 Dir.chdir(GEM_ROOT)
 
 class Test::Unit::TestCase 
+  
   private
     def capture_stdout  #copied out of ZenTest and reduced
       require 'stringio'

@@ -25,9 +25,7 @@ module Templette
     end
     
     def add_helper(helper)
-      eval "class << self
-        include Object.module_eval(\"::#{helper.split('_').map {|str| str.capitalize}.join}\", __FILE__, __LINE__)
-      end"
+      extend Object.module_eval("::#{helper.split('_').map {|str| str.capitalize}.join}", __FILE__, __LINE__)
     end
   
     def method_missing(symbol)
