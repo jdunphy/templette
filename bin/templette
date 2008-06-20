@@ -22,3 +22,4 @@ FileUtils.mkdir(new_dir) unless File.exists?(new_dir)
 end
 
 FileUtils.cp(File.dirname(__FILE__) + '/Rakefile', new_dir + '/Rakefile')
+FileUtils.cp(File.dirname(__FILE__) + '/default.rb', new_dir + '/default.rb')

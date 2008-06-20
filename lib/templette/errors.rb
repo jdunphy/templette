@@ -9,7 +9,7 @@ module Templette
     end
     
     def to_s
-      "#{self.class.name.split('::').last} - #{error_source.name}: #{@message}"
+      "#{self.class.name.split('::').last} - #{@error_source.name}: #{@message}"
     end
   end
   
