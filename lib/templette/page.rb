@@ -24,8 +24,7 @@ module Templette
       data['sections'].each_pair do |k,v|
         generate_accessor(k, v)
       end
-      
-      @helper_module_name = "#{@template.name.capitalize}Helper"            
+      include_helpers(helpers)
     end
   
     def output_file_name(out_dir)
@@ -38,19 +37,12 @@ module Templette
       end
     end
     
-    def page 
-      self
-    end
+    def page; self end
     
-    def method_missing(symbol)
-      #does Section also need to do something w/ method_missing?
-      if(defined?(@helper_module_name))
-        eval "#{@helper_module_name}.#{symbol}"
-      else
-        raise PageError.new(@page, "No method '#{symbol}' defined in the yaml")
-      end
+    def helpers
+      ["default_helper","#{template.name}_helper"]
     end
-    
+      
     class Section
       include Templette::DataAccessors
       attr_accessor :page

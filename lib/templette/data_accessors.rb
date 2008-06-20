@@ -14,9 +14,24 @@ module Templette
       attributes[k] = v
       instance_eval "def #{k.to_s}; attributes['#{k}']; end"
     end
+    
+    def include_helpers(helpers)
+      helpers.each do |helper|
+        if File.exists?("helpers/#{helper}.rb")
+          require "helpers/#{helper}" 
+          add_helper(helper)
+        end
+      end
+    end
+    
+    def add_helper(helper)
+      eval "class << self
+        include Object.module_eval(\"::#{helper.split('_').map {|str| str.capitalize}.join}\", __FILE__, __LINE__)
+      end"
+    end
   
-    def method_missing(symbol)        
-        raise PageError.new(page, "No method '#{symbol}' defined in the yaml")
+    def method_missing(symbol)
+      raise PageError.new(page, "No method '#{symbol}' defined in the yaml")
     end
   end
 end
