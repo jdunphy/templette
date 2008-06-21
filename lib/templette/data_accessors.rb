@@ -11,8 +11,8 @@ module Templette
       elsif v =~ /file:(.*)/
         v = File.open($1) {|f| f.read}
       end
-      attributes[k] = v
-      instance_eval "def #{k.to_s}; attributes['#{k}']; end"
+      attributes[k.to_s] = v
+      instance_eval "def #{k.to_s}; attributes['#{k.to_s}']; end"
     end
     
     def include_helpers(helpers)
