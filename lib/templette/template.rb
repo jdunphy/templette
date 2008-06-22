@@ -1,9 +1,9 @@
 require 'erb'
 require 'yaml'
 
-TEMPLATE_DIR = 'templates'
 module Templette
   class Template
+    TEMPLATE_DIR = 'templates' unless defined?(TEMPLATE_DIR)
     attr_accessor :name
     
     def initialize(name)

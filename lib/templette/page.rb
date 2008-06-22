@@ -1,10 +1,11 @@
 require 'yaml'
 require 'erb'
 
-PAGES_DIR = 'pages'
 module Templette
 
   class Page
+    PAGES_DIR = 'pages' unless defined?(PAGES_DIR)
+
     include Templette::DataAccessors
     attr_accessor :name, :template
   
