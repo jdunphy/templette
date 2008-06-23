@@ -110,9 +110,5 @@ class PageTest < Test::Unit::TestCase
   ensure
     File.delete(output_file) if File.exists?(output_file)
   end
-  
-  def test_specific_helper_should_override_application_helper
-    # TODO(sholder) implement this one
-  end
 
 end

@@ -3,25 +3,40 @@ require GEM_ROOT + '/lib/file_generator'
 
 class FileGeneratorTest < Test::Unit::TestCase
   
-  def setup
-    @file_path = GEM_ROOT + '/helpers/foo_helper.rb'
-  end
-  
   def test_helper_gerator_should_create_file
-    assert !File.exists?(@file_path)
+    file_path = GEM_ROOT + '/helpers/foo_helper.rb'
+    assert !File.exists?(file_path)
     FileGenerator.helper('foo')
-    assert File.exists?(@file_path)
+    assert File.exists?(file_path)
   ensure  
-    FileUtils.rm(@file_path) if File.exists?(@file_path)
+    FileUtils.rm(file_path) if File.exists?(file_path)
   end
   
   def test_generated_helper_file_should_contain_helper_module
+    file_path = GEM_ROOT + '/helpers/foo_helper.rb'
     FileGenerator.helper('foo')
-    helper_contents = File.read(@file_path)
+    helper_contents = File.read(file_path)
     assert_match "module FooHelper", helper_contents
   ensure  
-    FileUtils.rm(@file_path) if File.exists?(@file_path)  
+    FileUtils.rm(file_path) if File.exists?(file_path)  
   end
   
+  def test_should_generate_page_yaml_file
+    file_path = GEM_ROOT + '/pages/test.yml'
+    FileGenerator.page_yaml('main', 'test')
+    assert File.exists?(file_path)
+  ensure
+    FileUtils.rm(file_path) if File.exists?(file_path)  
+  end
+  
+  def test_generated_page_should_include_generated_yaml
+    file_path = GEM_ROOT + '/pages/test.yml'
+    FileGenerator.page_yaml('main', 'test')
+    page_yaml = YAML.load_file(file_path)
+    assert_not_nil page_yaml['title']
+    assert page_yaml['title'].kind_of?(Hash)
+  ensure
+    FileUtils.rm(file_path) if File.exists?(file_path)  
+  end
   
 end
