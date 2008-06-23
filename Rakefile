@@ -5,6 +5,16 @@ namespace :gem do
   desc "Clean build artifacts"
   task( :clean ) { FileUtils.rm_rf Dir['*.gem'] }    
 
+  desc "Install the gem"
+  task(:install => [:build, :uninstall]) do
+    system('sudo gem install templette')
+  end
+
+  task(:uninstall) do
+    system('sudo gem uninstall kablame')
+  end
+
+
 end   
 
 desc "Run the test suite."
