@@ -21,7 +21,7 @@ module Templette
       end
 
       if File.exists?(@resources_dir)
-        puts "Copying resources from #{@out_dir} to #{@resources_dir}"
+        puts "Copying resources from #{@resources_dir} to #{@out_dir}"
         FileUtils.cp_r("#{@resources_dir}/.", @out_dir)
       end
 
