@@ -20,8 +20,10 @@ module Templette
         end
       end
 
-      puts "Copying resources from #{@out_dir} to #{@resources_dir}"
-      FileUtils.cp_r("#{@resources_dir}/.", @out_dir)
+      if File.exists?(@resources_dir)
+        puts "Copying resources from #{@out_dir} to #{@resources_dir}"
+        FileUtils.cp_r("#{@resources_dir}/.", @out_dir)
+      end
 
       if @errors.empty?
         puts "Site generation complete!"

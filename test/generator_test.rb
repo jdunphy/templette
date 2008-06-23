@@ -32,14 +32,17 @@ class GeneratorTest < Test::Unit::TestCase
   ensure
     FileUtils.rm(GEM_ROOT + '/pages/incomplete_sections.yml')
   end
-  
+
   def test_should_copy_from_resources
     assert File.exist?('resources/javascript/main.js')
-    Templette::Generator.new.run
+    assert_successfully_generated { Templette::Generator.new.run }
     assert File.exist?('out/javascript/main.js')
   end
 
-  # TODO(sholder) test for resources dir not present
+  def test_should_not_complain_when_resources_not_present
+    assert !File.exist?('no_such_resources')
+    assert_successfully_generated { Templette::Generator.new('out', 'no_such_resources').run }
+  end
 
   def teardown
     recursive_delete GEM_ROOT + '/out'
