@@ -25,5 +25,9 @@ module Templette
         @errors.each { |e| puts "#{e.message}" }
       end 
     end
+    
+    def clean
+      FileUtils.rm_rf(@out_dir) if File.exists?(@out_dir)
+    end
   end
 end

@@ -8,6 +8,14 @@ task(:build) do
   Templette::Generator.new.run
 end
 
+desc "Remove all generated files"
+task :clean do
+  require 'rubygems'
+  gem 'templette'
+  require 'templette'
+  Templette::Generator.new.run(:clean) 
+end
+
 namespace :generate do
   
   desc "Generate empty page files based upon TEMPLATE= and NAMES="
