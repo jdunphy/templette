@@ -1,8 +1,9 @@
 require 'fileutils'
 module Templette
   class Generator
-    def initialize(out_dir = 'out')
+    def initialize(out_dir = 'out', resources_dir = 'resources')
       @out_dir = out_dir
+      @resources_dir = resources_dir
       @errors = []
     end
   
@@ -18,6 +19,10 @@ module Templette
           @errors.push(e)
         end
       end
+
+      puts "Copying resources from #{@out_dir} to #{@resources_dir}"
+      FileUtils.cp_r("#{@resources_dir}/.", @out_dir)
+
       if @errors.empty?
         puts "Site generation complete!"
       else

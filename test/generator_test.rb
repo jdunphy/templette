@@ -33,11 +33,16 @@ class GeneratorTest < Test::Unit::TestCase
     FileUtils.rm(GEM_ROOT + '/pages/incomplete_sections.yml')
   end
   
+  def test_should_copy_from_resources
+    assert File.exist?('resources/javascript/main.js')
+    Templette::Generator.new.run
+    assert File.exist?('out/javascript/main.js')
+  end
+
+  # TODO(sholder) test for resources dir not present
+
   def teardown
-    Dir.glob(GEM_ROOT + '/out/*').each do |f|
-      FileUtils.rm(f)
-    end
-    FileUtils.rm_rf(GEM_ROOT + '/out') if File.exist?(GEM_ROOT + '/out')
+    recursive_delete GEM_ROOT + '/out'
   end
   
   private
@@ -45,6 +50,17 @@ class GeneratorTest < Test::Unit::TestCase
     def assert_successfully_generated
       output = capture_stdout { yield }
       assert_match "Site generation complete!", output.string
+    end
+
+    def recursive_delete(dir)
+      Dir.glob("#{dir}/*").each do |f|
+        if(File.directory?(f))
+          recursive_delete(f)
+        else
+          FileUtils.rm(f)
+        end
+      end
+      FileUtils.rm_rf(GEM_ROOT + "/#{dir}") if File.exist?(GEM_ROOT + "/#{dir}")
     end
   
 end
