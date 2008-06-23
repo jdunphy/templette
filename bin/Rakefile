@@ -41,8 +41,7 @@ namespace :generate do
     require 'file_generator'
     FileGenerator.helper(ENV['NAME'])
   end 
-    
-      
+
 end
 
 task :default => :build
