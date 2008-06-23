@@ -13,7 +13,7 @@ task :clean do
   require 'rubygems'
   gem 'templette'
   require 'templette'
-  Templette::Generator.new.run(:clean) 
+  Templette::Generator.new.clean
 end
 
 namespace :generate do
