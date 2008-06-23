@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/test_helper.rb')
 class PageTest < Test::Unit::TestCase
   
   def test_init_no_such_file
-    page = Templette::Page.new(PAGES_DIR + '/nosuchfile.yml')
+    page = Templette::Page.new(Templette::Page::PAGES_DIR + '/nosuchfile.yml')
     flunk 'never threw exception for missing file'
   rescue Exception => e
     assert e.kind_of?(Templette::PageError)
@@ -59,7 +59,7 @@ class PageTest < Test::Unit::TestCase
   end
   
   def test_initialization_loads_sections_and_creates_methods
-    page = Templette::Page.new(PAGES_DIR + '/index.yml')
+    page = Templette::Page.new(Templette::Page::PAGES_DIR + '/index.yml')
     assert_equal 'Home', page.title.text
     assert_equal 'Home', page.title.text
     assert_equal '/images/whatever.jpg', page.inline.title.image
@@ -69,7 +69,7 @@ class PageTest < Test::Unit::TestCase
     FileUtils.mkdir('out') unless File.exists?('out')
     output_file = 'out/index.html'
     template = Templette::Template.new('main')
-    page = Templette::Page.new(PAGES_DIR + '/index.yml')
+    page = Templette::Page.new(Templette::Page::PAGES_DIR + '/index.yml')
     page.generate('out')
     assert File.exists?(output_file), 'output file was not generated'
     #should contain content from both the template and the page
