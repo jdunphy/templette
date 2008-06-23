@@ -11,7 +11,7 @@ namespace :gem do
   end
 
   task(:uninstall) do
-    system('sudo gem uninstall kablame')
+    system('sudo gem uninstall templette')
   end
 
 
