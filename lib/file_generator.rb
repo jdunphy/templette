@@ -1,4 +1,4 @@
-require 'templette'
+require File.dirname(__FILE__) + '/templette'
 module FileGenerator
   
   def self.page_yaml(template, names)

@@ -16,7 +16,7 @@ module Templette
     end
     
     def to_yaml
-      YAML::dump(MethodCollector.new(self).to_hash)
+      {'template_name' => @name, 'sections' => MethodCollector.new(self).to_hash}.to_yaml
     end
 
     private

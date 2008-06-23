@@ -33,10 +33,20 @@ class FileGeneratorTest < Test::Unit::TestCase
     file_path = GEM_ROOT + '/pages/test.yml'
     FileGenerator.page_yaml('main', 'test')
     page_yaml = YAML.load_file(file_path)
-    assert_not_nil page_yaml['title']
-    assert page_yaml['title'].kind_of?(Hash)
+    assert_not_nil page_yaml['sections']
+    assert page_yaml['sections'].kind_of?(Hash)
+    assert page_yaml['sections']['title'].kind_of?(Hash)
   ensure
     FileUtils.rm(file_path) if File.exists?(file_path)  
+  end
+  
+  def test_generate_page_should_include_template_name
+    file_path = GEM_ROOT + '/pages/test.yml'
+    FileGenerator.page_yaml('main', 'test')
+    page_yaml = YAML.load_file(file_path)
+    assert_equal 'main', page_yaml['template_name']
+  ensure
+    FileUtils.rm(file_path) if File.exists?(file_path)    
   end
   
 end

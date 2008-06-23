@@ -22,7 +22,11 @@ class TemplateTest < Test::Unit::TestCase
     t = Templette::Template.new('main')
     data = YAML::load(t.to_yaml)
     index_yaml = YAML::load_file(GEM_ROOT + '/pages/index.yml')
-    assert_generated_hash_has_keys(index_yaml['sections'], data)
+    assert_generated_hash_has_keys(index_yaml['sections'], data['sections'])
+  end
+  
+  def test_to_yaml_should_contain_template_name
+    assert_equal 'main', YAML::load(Templette::Template.new('main').to_yaml)['template_name']
   end
   
   protected
