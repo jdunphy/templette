@@ -16,6 +16,7 @@ namespace :generate do
       puts "You must set TEMPLATE AND NAMES to run this task."
       return
     end
+    require 'file_generator'
     FileGenerator.page_yaml(ENV['TEMPLATE'], ENV['NAMES'])
   end
   
@@ -25,6 +26,7 @@ namespace :generate do
       puts "You must enter a name for your helper."
       return
     end
+    require 'file_generator'
     FileGenerator.helper(ENV['NAME'])
   end 
 
