@@ -8,6 +8,18 @@ task :clean do
   Templette::Generator.new.clean
 end
 
+namespace :cap do
+  
+  desc "Install the basic capistrano recipes and Capfile"
+  task :install do
+    files_dir = File.dirname(__FILE__) + '/../../files/'
+    %w{Capfile deploy.rb}.each do |file|
+      FileUtils.cp(files_dir + file, file) unless File.exists?(file)
+    end
+  end
+  
+end
+
 namespace :generate do
   
   desc "Generate empty page files based upon TEMPLATE= and NAMES="
