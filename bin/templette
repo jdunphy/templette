@@ -21,5 +21,5 @@ FileUtils.mkdir(new_dir) unless File.exists?(new_dir)
   FileUtils.mkdir(new_dir + dir) unless File.exists?(new_dir + dir)
 end
 
-FileUtils.cp(File.dirname(__FILE__) + '/Rakefile', new_dir + '/Rakefile')
-FileUtils.cp(File.dirname(__FILE__) + '/default_helper.rb', new_dir + '/helpers/default_helper.rb')
+FileUtils.cp(File.dirname(__FILE__) + '/../files/Rakefile', new_dir + '/Rakefile')
+FileUtils.cp(File.dirname(__FILE__) + '/../files/default_helper.rb', new_dir + '/helpers/default_helper.rb')
