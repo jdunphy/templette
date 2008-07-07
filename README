@@ -1,4 +1,4 @@
-= Templette 0.2.2
+= Templette 0.3.0
 
 A Ruby static HTML templating gem.
 
@@ -22,3 +22,7 @@ Generates the full documents in an 'out' folder in the site root.
 == Helper support
 
 Automate content and avoid having to update transient information.  By default, a helper will automatically load a helper that shares its name.  Any methods loaded in the helper will be available to the template at build time.
+
+== Site resources
+
+Additional resources for a site such as css and images can be managed and built into the site using the resources directory.  All files within the resources dir get copied into your output directory upon build.
