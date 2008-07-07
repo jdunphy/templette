@@ -1,11 +1,23 @@
 desc "Build an HTML project from template files"
 task(:build) do
-  Templette::Generator.new.run
+  Templette::Generator.new(ENV['destination']).run
 end
 
 desc "Remove all generated files"
 task :clean do
   Templette::Generator.new.clean
+end
+
+namespace :cap do
+  
+  desc "Install the basic capistrano recipes and Capfile"
+  task :install do
+    files_dir = File.dirname(__FILE__) + '/../../files/'
+    %w{Capfile deploy.rb}.each do |file|
+      FileUtils.cp(files_dir + file, file) unless File.exists?(file)
+    end
+  end
+  
 end
 
 namespace :generate do
