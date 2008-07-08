@@ -3,14 +3,14 @@ require File.expand_path(File.dirname(__FILE__) + '/test_helper.rb')
 class GeneratorTest < Test::Unit::TestCase
   def test_should_generate_html_in_out_dir
     assert_successfully_generated { Templette::Generator.new.run }    
-    file_content = File.open(GEM_ROOT + '/out/index.html') {|f| f.read}
+    file_content = File.open(TEST_ROOT + '/out/index.html') {|f| f.read}
     assert_match '<html>', file_content
     assert_match '</html>', file_content
     assert_match 'This is the content.', file_content
   end
   
   def test_should_create_out_dir_if_doesnt_exist
-    out_dir = GEM_ROOT + '/nosuchdir'
+    out_dir = TEST_ROOT + '/nosuchdir'
     assert !File.exist?(out_dir)
     begin
       assert_successfully_generated { Templette::Generator.new(out_dir).run }
@@ -25,12 +25,12 @@ class GeneratorTest < Test::Unit::TestCase
   end
   
   def test_should_handle_errors_nicely    
-    FileUtils.cp(GEM_ROOT + '/test_data/incomplete_sections.yml', GEM_ROOT + '/pages/incomplete_sections.yml')
+    FileUtils.cp(TEST_ROOT + '/test_data/incomplete_sections.yml', TEST_ROOT + '/pages/incomplete_sections.yml')
     output = capture_stdout { Templette::Generator.new.run }
     assert_match "SITE GENERATED WITH ERRORS!", output.string
     assert_match "No method 'image' defined in the yaml", output.string
   ensure
-    FileUtils.rm(GEM_ROOT + '/pages/incomplete_sections.yml')
+    FileUtils.rm(TEST_ROOT + '/pages/incomplete_sections.yml')
   end
 
   def test_should_copy_from_resources
@@ -45,7 +45,7 @@ class GeneratorTest < Test::Unit::TestCase
   end
 
   def teardown
-    recursive_delete GEM_ROOT + '/out'
+    recursive_delete TEST_ROOT + '/out'
   end
   
   private
@@ -63,7 +63,7 @@ class GeneratorTest < Test::Unit::TestCase
           FileUtils.rm(f)
         end
       end
-      FileUtils.rm_rf(GEM_ROOT + "/#{dir}") if File.exist?(GEM_ROOT + "/#{dir}")
+      FileUtils.rm_rf(TEST_ROOT + "/#{dir}") if File.exist?(TEST_ROOT + "/#{dir}")
     end
   
 end

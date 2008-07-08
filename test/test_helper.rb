@@ -1,10 +1,12 @@
 GEM_ROOT = File.expand_path(File.dirname(__FILE__) + "/../") unless defined?(GEM_ROOT)
+TEST_ROOT = GEM_ROOT + '/test_site' unless defined?(TEST_ROOT)
+
 
 require 'test/unit'
 require 'fileutils'
 require GEM_ROOT + '/lib/templette'
 
-Dir.chdir(GEM_ROOT)
+Dir.chdir(TEST_ROOT)
 
 class Test::Unit::TestCase 
   
