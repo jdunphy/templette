@@ -32,6 +32,8 @@ module Templette
       ERB.new(template.to_html, 0, "%<>").result(binding) if(template)        
     end
     
+    
+    #TODO: Potential bug.  This will hash keys for helper methods, even though they shouldn't be in the hash
     def method_missing(symbol)
       @methods[symbol.to_s] = MethodCollector.new
     end
