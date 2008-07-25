@@ -22,24 +22,24 @@ end
 
 namespace :generate do
   
-  desc "Generate empty page files based upon TEMPLATE= and NAMES="
+  desc "Generate empty page files based upon template= and names="
   task :page_yaml do
-    unless ENV['TEMPLATE'] && ENV['NAMES']
-      puts "You must set TEMPLATE AND NAMES to run this task."
+    unless ENV['template'] && ENV['names']
+      puts "You must set template and names to run this task."
       return
     end
     require 'file_generator'
-    FileGenerator.page_yaml(ENV['TEMPLATE'], ENV['NAMES'])
+    FileGenerator.page_yaml(ENV['template'], ENV['names'])
   end
   
-  desc "Generate an empty generator file with NAME=example"
+  desc "Generate an empty generator file with name=example"
   task :helper do
-    unless ENV['NAME']
+    unless ENV['name']
       puts "You must enter a name for your helper."
       return
     end
     require 'file_generator'
-    FileGenerator.helper(ENV['NAME'])
+    FileGenerator.helper(ENV['name'])
   end 
 
 end
