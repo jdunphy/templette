@@ -8,7 +8,6 @@ Gem::Specification.new do |s|
   s.summary = 'HTML site generation through templates'
   
   s.files = FileList['lib/**/*.rb', 'bin/*', 'files/*'].to_a
-  s.autorequire = %q{templette}
   
   s.description = <<-EOF
           HTML site generation through templates
@@ -18,6 +17,7 @@ Gem::Specification.new do |s|
   s.default_executable = 'templette'
   
   s.email = 'jacob.dunphy@gmail.com'
-  
-  s.has_rdoc = false
+  s.homepage = 'http://github.com/jdunphy/templette'
+  s.rubyforge_project = 'templette'
+  s.has_rdoc = true
 end
