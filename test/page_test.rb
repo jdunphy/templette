@@ -41,8 +41,8 @@ class PageTest < Test::Unit::TestCase
     assert_raises(Templette::TempletteError) { Templette::Page.new('test_data/illegal_method.yml') }
   end
   
-  def test_find_pages
-     pages = Templette::Page.find
+  def test_find_all_pages
+     pages = Templette::Page.find_all
      assert_equal 1, pages.length
      assert_equal 'Home', pages.first.title.text
   end       

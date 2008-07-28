@@ -9,7 +9,7 @@ module Templette
     include Templette::DataAccessors
     attr_accessor :name, :template
   
-    def self.find
+    def self.find_all
       Dir["#{PAGES_DIR}/*.yml"].map {|f| Page.new(f) }
     end
   

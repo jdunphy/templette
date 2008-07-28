@@ -9,7 +9,7 @@ module Templette
   
     def run
       FileUtils.mkdir(@out_dir) unless File.exists?(@out_dir)
-      pages = Page.find
+      pages = Page.find_all
       puts "Generating site to: #{@out_dir}; contains #{pages.size} pages"
       pages.each do |page|
         puts "Generating page #{page.name} using template #{page.template.name}"
