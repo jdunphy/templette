@@ -28,21 +28,24 @@ module Templette
       include_helpers(helpers)
     end
   
-    def output_file_name(out_dir)
-      "#{out_dir}/#{@name}.html"
-    end
-  
     def generate(out_dir)
       File.open(output_file_name(out_dir), 'w') do |f| 
         f << ERB.new(@template.to_html, 0, "%<>").result(binding)
       end
     end
-    
+
+    # A requriement of the Templette::DataAccessors interface.  Returns self.
     def page; self end
+
+    def output_file_name(out_dir)
+      "#{out_dir}/#{@name}.html"
+    end
+    private :output_file_name
     
     def helpers
       ["default_helper","#{template.name}_helper"]
     end
+    private :helpers
       
     class Section
       include Templette::DataAccessors
