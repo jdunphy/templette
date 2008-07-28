@@ -17,7 +17,9 @@ Generates a site folder.
 
 rake build
 
-Generates the full documents in an 'out' folder in the site root.         
+Generates the full documents in an 'out' folder in the site root.       
+
+For more information on available rake tasks, check out FileGenerator.  
 
 == Helper support
 
