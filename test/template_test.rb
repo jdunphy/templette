@@ -29,6 +29,12 @@ class TemplateTest < Test::Unit::TestCase
     assert_equal 'main', YAML::load(Templette::Template.new('main').to_yaml)['template_name']
   end
   
+  def test_should_have_helpers
+    t = Templette::Template.new('main')
+    assert t.helpers.include?('main_helper')
+    assert t.helpers.include?('default_helper')
+  end
+  
   protected
     def assert_generated_hash_has_keys(source, test_data)
       test_data.each_pair do |k, v|

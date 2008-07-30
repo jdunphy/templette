@@ -25,7 +25,7 @@ module Templette
       data['sections'].each_pair do |k,v|
         generate_accessor(k, v)
       end
-      include_helpers(helpers)
+      include_helpers(template.helpers)
     end
   
     def generate(out_dir)
@@ -41,11 +41,6 @@ module Templette
       "#{out_dir}/#{@name}.html"
     end
     private :output_file_name
-    
-    def helpers
-      ["default_helper","#{template.name}_helper"]
-    end
-    private :helpers
       
     class Section
       include Templette::DataAccessors

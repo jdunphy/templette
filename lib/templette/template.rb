@@ -18,6 +18,10 @@ module Templette
     def to_yaml
       {'template_name' => @name, 'sections' => MethodCollector.new(self).to_hash}.to_yaml
     end
+    
+    def helpers
+      ["default_helper","#{name}_helper"]
+    end
 
     private
       def path
