@@ -13,10 +13,10 @@ module Templette
     end
   end
   
-  class TemplateError < TempletteError
+  class TemplateError < TempletteError  # :nodoc:
   end
   
-  class PageError < TempletteError
+  class PageError < TempletteError  # :nodoc:
   end
   
 end
