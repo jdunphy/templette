@@ -33,3 +33,8 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+desc 'Publish rdoc'
+task( :rdoc_publish => :rdoc ) do
+  `rsync -a --delete ./doc/ jdunphy@rubyforge.org:/var/www/gforge-projects/templette/`
+end
