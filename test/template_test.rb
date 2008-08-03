@@ -29,6 +29,13 @@ class TemplateTest < Test::Unit::TestCase
     assert_equal 'main', YAML::load(Templette::Template.new('main').to_yaml)['template_name']
   end
   
+  def test_generated_yaml_should_not_contain_helper_methods
+    data = YAML::load(Templette::Template.new('application_helper').to_yaml)
+    assert !data['sections'].keys.include?('application_helper_method')
+    data = YAML::load(Templette::Template.new('dynamic').to_yaml)
+    assert !data['sections'].keys.include?('footer_blurb')
+  end
+  
   def test_should_have_helpers
     t = Templette::Template.new('main')
     assert t.helpers.include?('main_helper')

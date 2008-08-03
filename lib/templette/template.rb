@@ -30,14 +30,14 @@ module Templette
   end
   
   class MethodCollector
+    include Templette::DataAccessors
     
     def initialize(template = nil)
+      include_helpers(template.helpers) if template
       @methods = {}
       ERB.new(template.to_html, 0, "%<>").result(binding) if(template)        
-    end
+    end    
     
-    
-    #TODO: Potential bug.  This will hash keys for helper methods, even though they shouldn't be in the hash
     def method_missing(symbol)
       @methods[symbol.to_s] = MethodCollector.new
     end
