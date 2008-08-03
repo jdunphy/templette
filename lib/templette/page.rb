@@ -44,9 +44,7 @@ module Templette
       @template = Template.new(data['template_name'])
 
       raise PageError.new(self, "missing sections in yml for page config #{page_config}") unless data['sections']
-      data['sections'].each_pair do |k,v|
-        generate_accessor(k, v)
-      end
+      generate_accessors(data['sections'])
       include_helpers(template.helpers)
     end
   
@@ -70,9 +68,7 @@ module Templette
       
       def initialize(page, hash={})
         @page = page
-        for k,v in hash
-          generate_accessor(k, v)
-        end
+        generate_accessors(hash)
       end
       
     end 
