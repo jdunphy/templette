@@ -9,6 +9,14 @@ class GeneratorTest < Test::Unit::TestCase
     assert_match 'This is the content.', file_content
   end
   
+  def test_should_generate_html_in_out_dir_subirectories
+    assert_successfully_generated { Templette::Generator.new.run }    
+    file_content = File.open(TEST_ROOT + '/out/subdir/index.html') {|f| f.read}
+    assert_match '<html>', file_content
+    assert_match '</html>', file_content
+    assert_match 'This is the subdir/index content.', file_content
+  end
+  
   def test_should_create_out_dir_if_doesnt_exist
     out_dir = TEST_ROOT + '/nosuchdir'
     assert !File.exist?(out_dir)

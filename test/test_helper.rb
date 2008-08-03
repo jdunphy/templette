@@ -22,4 +22,13 @@ class Test::Unit::TestCase
     ensure
       $stdout = orig_stdout
     end
+    
+
+    def set_pages_dir(path)
+      Templette::Page.pages_dir = path
+    end
+
+    def reset_pages_dir
+      Templette::Page.pages_dir = 'pages'
+    end    
 end

@@ -1,5 +1,6 @@
 require 'yaml'
 require 'erb'
+require 'fileutils'
 
 module Templette
 
@@ -22,24 +23,35 @@ module Templette
   # objects.  To call the nav title, the template should call <tt>nav.title</tt>.
   
   class Page
-    PAGES_DIR = 'pages' unless defined?(PAGES_DIR)
 
     include Templette::DataAccessors
     attr_accessor :name, :template
+    
+    class <<self
+      def pages_dir
+        @@pages_dir ||= 'pages'
+      end
+      
+      def pages_dir=(path)
+        @@pages_dir = path
+      end
+    end
   
     # Grabs all of the yaml files found in /pages, and loads them as
     # Page objects.
     #
     # TODO: This needs to be recursive!  We should support nested page directories.
     def self.find_all
-      Dir["#{PAGES_DIR}/*.yml"].map {|f| Page.new(f) }
+      Dir["#{pages_dir}/**/*.yml"].map {|f| Page.new(f) }
     end
   
     def initialize(page_config)
       raise PageError.new(self, "missing page #{page_config}") unless File.exists?(page_config)
 
       data = YAML::load_file(page_config)
-      @name = File.basename(page_config, '.yml')
+      @name = page_config.dup
+      @name.slice!(self.class.pages_dir + '/')
+      @name.chomp!('.yml')
       raise PageError.new(self, "missing required section \"template_name\" for page config #{page_config}") unless data['template_name']
       @template = Template.new(data['template_name'])
 
@@ -49,6 +61,7 @@ module Templette
     end
   
     def generate(out_dir)
+      generate_subdirectory(out_dir)
       File.open(output_file_name(out_dir), 'w') do |f| 
         f << ERB.new(@template.to_html, 0, "%<>").result(binding)
       end
@@ -61,6 +74,11 @@ module Templette
       "#{out_dir}/#{@name}.html"
     end
     private :output_file_name
+    
+    def generate_subdirectory(out_dir)
+      FileUtils.mkdir_p(File.expand_path("#{out_dir}/" + name.chomp(File.basename(name)))) if name.index('/')
+    end
+    private :generate_subdirectory
       
     class Section
       include Templette::DataAccessors
@@ -72,7 +90,5 @@ module Templette
       end
       
     end 
-  end   
-    
+  end
 end
-

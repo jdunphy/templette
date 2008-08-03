@@ -1,0 +1,12 @@
+template_name: main
+sections:
+  title:
+    text: Subdir Home
+    image: /images/title.jpg
+  main:
+   content: file:./pages/subdir/index.html
+  inline:
+    title:
+      image: /images/whatever.jpg
+  image:
+    banner: /images/banner.jpg
