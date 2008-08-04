@@ -39,8 +39,6 @@ module Templette
   
     # Grabs all of the yaml files found in /pages, and loads them as
     # Page objects.
-    #
-    # TODO: This needs to be recursive!  We should support nested page directories.
     def self.find_all
       Dir["#{pages_dir}/**/*.yml"].map {|f| Page.new(f) }
     end
@@ -69,26 +67,26 @@ module Templette
 
     # A requriement of the Templette::DataAccessors interface.  Returns self.
     def page; self end
-
-    def output_file_name(out_dir)
-      "#{out_dir}/#{@name}.html"
-    end
-    private :output_file_name
     
-    def generate_subdirectory(out_dir)
-      FileUtils.mkdir_p(File.expand_path("#{out_dir}/" + name.chomp(File.basename(name)))) if name.index('/')
-    end
-    private :generate_subdirectory
-      
-    class Section
-      include Templette::DataAccessors
-      attr_accessor :page
-      
-      def initialize(page, hash={})
-        @page = page
-        generate_accessors(hash)
+    private
+
+      def output_file_name(out_dir)
+        "#{out_dir}/#{@name}.html"
+      end
+    
+      def generate_subdirectory(out_dir)
+        FileUtils.mkdir_p(File.expand_path("#{out_dir}/" + name.chomp(File.basename(name)))) if name.index('/')
       end
       
-    end 
+      class Section # :nodoc:
+        include Templette::DataAccessors
+        attr_accessor :page
+      
+        def initialize(page, hash={})
+          @page = page
+          generate_accessors(hash)
+        end
+      
+      end 
   end
 end
