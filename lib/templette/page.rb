@@ -25,7 +25,7 @@ module Templette
   class Page
 
     include Templette::DataAccessors
-    attr_accessor :name, :template
+    attr_reader :name, :template
     
     class <<self
       def pages_dir

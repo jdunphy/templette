@@ -10,7 +10,7 @@ module Templette
     def run
       FileUtils.mkdir(@out_dir) unless File.exists?(@out_dir)
       pages = Page.find_all
-      puts "Generating site to: #{@out_dir}; contains #{pages.size} pages"
+      puts "Generating site in: #{@out_dir}; contains #{pages.size} pages"
       pages.each do |page|
         puts "Generating page #{page.name} using template #{page.template.name}"
         begin
@@ -29,7 +29,7 @@ module Templette
         puts "Site generation complete!"
       else
         puts "SITE GENERATED WITH ERRORS!"
-        @errors.each { |e| puts "#{e.message}" }
+        @errors.each { |e| puts e.message }
       end 
     end
     

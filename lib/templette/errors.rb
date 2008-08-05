@@ -1,11 +1,9 @@
 module Templette
-  
   class TempletteError < Exception
-    attr_accessor :error_source
     
     def initialize(error_source, message = nil)
-      @message = message
       @error_source = error_source
+      @message = message
     end
     
     def to_s
