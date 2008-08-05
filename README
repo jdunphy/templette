@@ -4,22 +4,21 @@ A Ruby static HTML templating gem.
 
 == Why?
 
-Templette was created to help make creating static websites easy.  It provides a (hopefully) simple structure of pages, templates and helpers.  Templates are the universal page layouts.  Pages are the unique content of a page.
-
-This is the worst readme ever.
-
+Templette was created to make it easy to create and maintain static websites.  It provides a (hopefully) simple structure of pages, templates and helpers.  Templates are the universal page layouts.  Pages are the unique content of a page.
 
 == Use me
 
 templette <site-name>
 
-Generates a site folder.
+Generates the framework basics.
 
 rake build
 
 Generates the full documents in an 'out' folder in the site root.       
 
-For more information on available rake tasks, check out FileGenerator.  
+For more information on available rake tasks, check out FileGenerator.
+
+For more info on creating pages, look at Page.
 
 == Helper support
 
