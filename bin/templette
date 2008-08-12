@@ -4,7 +4,7 @@
 usage = <<USAGE
 Generate the templette framework.
 Usage: templette <directory>
---help gets you this help message
+--help gets you this help message... Helpful!
 USAGE
 
 require 'fileutils'

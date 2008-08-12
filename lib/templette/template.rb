@@ -1,6 +1,3 @@
-require 'erb'
-require 'yaml'
-
 module Templette
   # The Template acts as a layout for pages.  It contains an html layout for the
   # page and contains method calls which are answered by helper methods or the 

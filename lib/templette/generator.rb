@@ -1,4 +1,3 @@
-require 'fileutils'
 module Templette
   class Generator
     def initialize(out_dir = 'out', resources_dir = 'resources')

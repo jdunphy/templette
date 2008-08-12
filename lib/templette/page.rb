@@ -1,7 +1,3 @@
-require 'yaml'
-require 'erb'
-require 'fileutils'
-
 module Templette
 
   # The Page is the core object of a Templette project.  Pages won't get generate
@@ -25,7 +21,7 @@ module Templette
   class Page
 
     include Templette::DataAccessors
-    attr_accessor :name, :template
+    attr_reader :name, :template
     
     class <<self
       def pages_dir
@@ -35,12 +31,12 @@ module Templette
       def pages_dir=(path)
         @@pages_dir = path
       end
-    end
   
-    # Grabs all of the yaml files found in /pages, and loads them as
-    # Page objects.
-    def self.find_all
-      Dir["#{pages_dir}/**/*.yml"].map {|f| Page.new(f) }
+      # Grabs all of the yaml files found in /pages, and loads them as
+      # Page objects.
+      def find_all
+        Dir["#{pages_dir}/**/*.yml"].map {|f| new f }
+      end
     end
   
     def initialize(page_config)
@@ -80,7 +76,7 @@ module Templette
       
       class Section # :nodoc:
         include Templette::DataAccessors
-        attr_accessor :page
+        attr_reader :page
       
         def initialize(page, hash={})
           @page = page
