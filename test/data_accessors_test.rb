@@ -45,4 +45,10 @@ class DataAccessorsTest < Test::Unit::TestCase
     assert_equal 'foo', boo
   end
   
+  def test_generate_accessors_should_raise_error_if_missing_file_is_requested
+    self.expects(:page).returns(stub('page_object', :name => 'FAKE PAGE'))
+    error = assert_raise(Templette::PageError) { generate_accessors :file_node => 'file:404esque.html'}
+    assert_equal 'PageError - FAKE PAGE: File requested by :file_node no found!', error.to_s
+  end
+  
 end

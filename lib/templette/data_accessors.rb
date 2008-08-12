@@ -30,6 +30,7 @@ module Templette
         if v.kind_of?(Hash)
           v = Page::Section.new(page, v)
         elsif v =~ /file:(.*)/
+          raise PageError.new(page, "File requested by :#{k} no found!") unless File.exists?($1)
           v = File.open($1) {|f| f.read}
         end
         attributes[k.to_s] = v
