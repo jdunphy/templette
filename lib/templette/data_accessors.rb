@@ -5,18 +5,11 @@ module Templette
     end
     
     def generate_accessors(accessors = {})
-      accessors.each_pair do |k,v|
-        generate_accessor(k, v)
-      end
+      accessors.each_pair { |k,v| generate_accessor(k, v) }
     end
         
     def include_helpers(helpers)
-      helpers.each do |helper|
-        if File.exists?("helpers/#{helper}.rb")
-          require "helpers/#{helper}" 
-          add_helper(helper)
-        end
-      end
+      helpers.each { |helper| add_helper(helper) }
     end
     
     def method_missing(symbol)
@@ -38,7 +31,10 @@ module Templette
       end
 
       def add_helper(helper)
-        extend Object.module_eval("::#{helper.split('_').map {|str| str.capitalize}.join}", __FILE__, __LINE__)
+        if File.exists?("helpers/#{helper}.rb")
+          require "helpers/#{helper}" 
+          extend Object.module_eval("::#{helper.split('_').map {|str| str.capitalize}.join}", __FILE__, __LINE__)
+        end
       end
   end
 end
