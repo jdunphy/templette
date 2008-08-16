@@ -28,6 +28,15 @@ class GeneratorTest < Test::Unit::TestCase
     end
   end
   
+  def test_clean_should_remove_out
+    out_dir = TEST_ROOT + '/out'
+    t = Templette::Generator.new(out_dir)
+    capture_stdout { t.run }
+    assert File.exists?(out_dir)
+    t.clean
+    assert !File.exists?(out_dir)
+  end
+  
   def test_should_print_success_message
     assert_match "Site generation complete!", capture_stdout { Templette::Generator.new.run }.string
   end
@@ -53,7 +62,7 @@ class GeneratorTest < Test::Unit::TestCase
   end
 
   def teardown
-    recursive_delete TEST_ROOT + '/out'
+    FileUtils.rm_rf(TEST_ROOT + "/out") if File.exist?(TEST_ROOT + "/out")
   end
   
   private
@@ -61,17 +70,6 @@ class GeneratorTest < Test::Unit::TestCase
     def assert_successfully_generated
       output = capture_stdout { yield }
       assert_match "Site generation complete!", output.string
-    end
-
-    def recursive_delete(dir)
-      Dir.glob("#{dir}/*").each do |f|
-        if(File.directory?(f))
-          recursive_delete(f)
-        else
-          FileUtils.rm(f)
-        end
-      end
-      FileUtils.rm_rf(TEST_ROOT + "/#{dir}") if File.exist?(TEST_ROOT + "/#{dir}")
     end
   
 end

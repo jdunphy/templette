@@ -5,6 +5,8 @@ TEST_ROOT = GEM_ROOT + '/test_site' unless defined?(TEST_ROOT)
 require 'test/unit'
 require 'fileutils'
 require GEM_ROOT + '/lib/templette'
+require 'rubygems'
+require 'mocha'
 
 require 'rubygems'
 require 'mocha'
