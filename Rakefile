@@ -2,8 +2,9 @@ require 'rake'
 require 'rake/rdoctask'
 
 namespace :gem do
+  
   desc "Build the gem"
-  task( :build => :clean ) { `gem build templette.gemspec` }
+  task( :build => :clean ) { system('gem build templette.gemspec') }
 
   desc "Clean build artifacts"
   task( :clean ) { FileUtils.rm_rf Dir['*.gem'] }    
@@ -16,7 +17,6 @@ namespace :gem do
   task(:uninstall) do
     system('sudo gem uninstall templette')
   end
-
 
 end   
 

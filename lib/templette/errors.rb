@@ -1,5 +1,5 @@
 module Templette
-  class TempletteError < Exception
+  class TempletteError < StandardError
     
     def initialize(error_source, message = nil)
       @error_source = error_source
