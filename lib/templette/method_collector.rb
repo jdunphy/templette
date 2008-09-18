@@ -7,9 +7,11 @@ module Templette
     include Templette::DataAccessors
   
     def initialize(template = nil)
-      include_helpers(template.helpers) if template
       @methods = {}
-      ERB.new(template.to_html, 0, "%<>").result(binding) if template
+      if template
+        include_helpers(template.helpers)
+        ERB.new(template.to_html, 0, "%<>").result(binding)
+      end
     end    
   
     def method_missing(symbol)
