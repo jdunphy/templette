@@ -1,6 +1,10 @@
 desc "Build an HTML project from template files"
 task(:build) do
-  Templette::Generator.new(ENV['destination']).run
+  if ENV['destination']
+    Templette::Generator.new(ENV['destination']).run
+  else
+    Templette::Generator.new.run
+  end
 end
 
 desc "Remove all generated files"
