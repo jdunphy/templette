@@ -25,6 +25,8 @@ module Templette
         elsif v =~ /file:(.*)/
           raise PageError.new(page, "File requested by :#{k} no found!") unless File.exists?($1)
           v = File.open($1) {|f| f.read}
+        elsif v.nil?
+          v = Page::Section.new(page, {})
         end
         attributes[k.to_s] = v
         instance_eval "def #{k.to_s}; attributes['#{k.to_s}']; end"

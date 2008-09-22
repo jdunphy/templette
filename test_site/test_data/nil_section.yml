@@ -1,0 +1,6 @@
+--- 
+sections: 
+  body: 
+  header: 
+    title: I'm a title! 
+template_name: main

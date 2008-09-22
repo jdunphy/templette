@@ -35,6 +35,18 @@ class PageTest < Test::Unit::TestCase
     assert_match 'missing sections', e.message
   end
   
+  def test_rendering_page_catches_and_raises_missing_methods
+    set_pages_dir 'test_data'
+    page = Templette::Page.new('test_data/nil_section.yml')
+    page.generate('out')
+    flunk 'never threw exception for missing section'
+  rescue Exception => e
+    assert e.kind_of?(Templette::PageError)
+    assert_match 'nil_section', e.message
+    assert_match "No method 'title'", e.message
+  end
+  
+  
   def test_init_page_invalid_yml
     page = Templette::Page.new('test_data/bad_config.xml')
     flunk 'never threw exception for a non-yml file'
