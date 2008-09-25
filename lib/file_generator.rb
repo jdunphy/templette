@@ -9,8 +9,10 @@ module FileGenerator
     def page_yaml(template, names)
       template = Templette::Template.new(template)
       names.split(/\s+/).each do |name|
-        unless File.exists?("pages/#{name}.yml")
-          File.open("pages/#{name}.yml", 'w') {|f| f << template.to_yaml }
+        filename = "pages/#{name}.yml"
+        unless File.exists?(filename)
+          FileUtils.mkdir_p(File.dirname(filename))
+          File.open(filename, 'w') {|f| f << template.to_yaml }
         end
       end
     end

@@ -49,4 +49,13 @@ class FileGeneratorTest < Test::Unit::TestCase
     FileUtils.rm(file_path) if File.exists?(file_path)    
   end
   
+  def test_generate_page_should_handle_directory_depth
+    file_path = TEST_ROOT + '/pages/new-subdir/test.yml'
+    FileGenerator.page_yaml('main', 'new-subdir/test')
+    assert File.exists?(file_path)
+  ensure  
+    FileUtils.rm(file_path) if File.exists?(file_path)
+    FileUtils.rm_rf(TEST_ROOT + '/pages/new-subdir') 
+  end
+  
 end
