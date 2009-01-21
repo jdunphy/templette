@@ -38,3 +38,5 @@ desc 'Publish rdoc'
 task( :rdoc_publish => :rdoc ) do
   `rsync -a --delete ./doc/ jdunphy@rubyforge.org:/var/www/gforge-projects/templette/`
 end
+
+task :default => :test
