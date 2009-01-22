@@ -12,11 +12,6 @@ module Templette
     def initialize(name)
       @name = name      
     end
-  
-    def to_html
-      raise TemplateError.new(self, "Template rendering failed.  File not found.") unless File.exists?(path)
-      File.read(path)
-    end
     
     # Generates the yaml necessary to render empty page yaml files.
     def to_yaml
@@ -35,6 +30,11 @@ module Templette
     private
       def path
         "#{TEMPLATE_DIR}/#{@name}.html"
+      end
+      
+      def to_html
+        raise TemplateError.new(self, "Template rendering failed.  File not found.") unless File.exists?(path)
+        File.read(path)
       end
   end
 end

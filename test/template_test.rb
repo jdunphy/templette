@@ -1,19 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/test_helper.rb')
 
 class TemplateTest < Test::Unit::TestCase
-  
-  def test_should_return_template_html
-    assert_not_nil Templette::Template.new('main').to_html
-  end
-  
-  def test_should_raise_exception_if_file_not_found
-    assert_raises(Templette::TemplateError) { Templette::Template.new('four-oh-four').to_html }
+    
+  def test_render_should_raise_exception_if_file_not_found
+    assert_raises(Templette::TemplateError) { Templette::Template.new('four-oh-four').render(binding) }
   end
   
   def test_should_have_informative_error_message
     begin
-      Templette::Template.new('four-oh-four').to_html
-    rescue Exception => e
+      Templette::Template.new('four-oh-four').render(binding)
+    rescue Templette::TemplateError => e
       assert_equal "TemplateError - four-oh-four: Template rendering failed.  File not found.", e.message
     end
   end
