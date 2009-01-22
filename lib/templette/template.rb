@@ -29,7 +29,7 @@ module Templette
 
     private
       def path
-        "#{TEMPLATE_DIR}/#{@name}.html"
+        path = Dir["#{TEMPLATE_DIR}/#{@name}.html*"].first || ''
       end
       
       def to_html
