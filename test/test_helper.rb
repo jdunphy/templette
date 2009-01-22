@@ -8,9 +8,6 @@ require GEM_ROOT + '/lib/templette'
 require 'rubygems'
 require 'mocha'
 
-require 'rubygems'
-require 'mocha'
-
 Dir.chdir(TEST_ROOT)
 
 class Test::Unit::TestCase 
