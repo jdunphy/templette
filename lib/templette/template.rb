@@ -27,6 +27,10 @@ module Templette
     def helpers
       ["default_helper","#{name}_helper"]
     end
+    
+    def render(the_binding)
+      ERB.new(to_html, 0, "%<>").result(the_binding)
+    end
 
     private
       def path

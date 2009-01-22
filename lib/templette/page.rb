@@ -57,7 +57,7 @@ module Templette
     def generate(out_dir)
       generate_subdirectory(out_dir)
       File.open(output_file_name(out_dir), 'w') do |f| 
-        f << ERB.new(@template.to_html, 0, "%<>").result(binding)
+        f << @template.render(binding)
       end
     end
 

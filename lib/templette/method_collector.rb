@@ -10,7 +10,7 @@ module Templette
       @methods = {}
       if template
         include_helpers(template.helpers)
-        ERB.new(template.to_html, 0, "%<>").result(binding)
+        template.render(binding)
       end
     end    
   
