@@ -24,16 +24,26 @@ module Templette
     end
     
     def render(the_binding)
-      ERB.new(to_html, 0, "%<>").result(the_binding)
+      raise TemplateError.new(self, "Template rendering failed.  File not found.") unless File.exists?(path)
+      if type == 'erb'
+        ERB.new(to_html, 0, "%<>").result(the_binding)
+      elsif type == 'haml'
+        Haml::Engine.new(to_html).render(the_binding)
+      else
+        raise TemplateError.new(self, "Rendering engine #{type} is not supported!")
+      end
     end
 
     private
       def path
-        path = Dir["#{TEMPLATE_DIR}/#{@name}.html*"].first || ''
+        Dir["#{TEMPLATE_DIR}/#{@name}.html*"].first || ''
+      end
+      
+      def type
+        path.match(/html\.?(\w+)?/)[1] || 'erb'
       end
       
       def to_html
-        raise TemplateError.new(self, "Template rendering failed.  File not found.") unless File.exists?(path)
         File.read(path)
       end
   end

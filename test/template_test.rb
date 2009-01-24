@@ -32,6 +32,10 @@ class TemplateTest < Test::Unit::TestCase
     assert !data['sections'].keys.include?('footer_blurb')
   end
   
+  def test_templates_with_invalid_extensions_raise_an_error
+    assert_raises(Templette::TemplateError) { Templette::Template.new('bad-template').render(binding) }
+  end
+  
   def test_should_have_helpers
     t = Templette::Template.new('main')
     assert t.helpers.include?('main_helper')
