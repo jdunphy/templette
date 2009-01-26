@@ -2,6 +2,11 @@ module Templette
   # The Template acts as a layout for pages.  It contains an html layout for the
   # page and contains method calls which are answered by helper methods or the 
   # loaded yaml of a page.
+  #
+  # Templates now support ERB or Haml for rendering.  
+  # * template.html.haml   
+  # * template.html.erb   
+  # * template.html  -> defaults to ERB   
 
   class Template
     TEMPLATE_DIR = 'templates' unless defined?(TEMPLATE_DIR)

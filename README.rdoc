@@ -18,6 +18,12 @@ For more information on available rake tasks, check out FileGenerator.
 
 For more info on creating pages, look at Templette::Page.
 
+=== Haml or ERB
+
+Template rendering supports multiple rendering engines now, with one or two more to arrive shortly.  
+Simply name templates with their rendering engine name as the final file extension. Like `template.html.haml`.
+More details are in Templette::Template.
+
 === Helper support
 
 Automate content and avoid having to update transient information.  By default, a helper will automatically load a helper that shares its name.  Any methods loaded in the helper will be available to the template at build time.
