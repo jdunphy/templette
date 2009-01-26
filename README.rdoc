@@ -4,7 +4,10 @@ A Ruby static HTML templating gem.
 
 === Why?
 
-Templette was created to make it easy to create and maintain static websites.  It provides a (hopefully) simple structure of pages, templates and helpers.  Templates are the universal page layouts.  Pages are the unique content of a page.
+Templette was created to make it easy to create and maintain static websites.  
+It provides a (hopefully) simple structure of pages, templates and helpers.  
+Templates are the universal page layouts.  
+Pages are the unique content of a page.
 
 === Use me
 
@@ -26,8 +29,11 @@ More details are in Templette::Template.
 
 === Helper support
 
-Automate content and avoid having to update transient information.  By default, a helper will automatically load a helper that shares its name.  Any methods loaded in the helper will be available to the template at build time.
+Automate content and avoid having to update transient information.  
+By default, a helper will automatically load a helper that shares its name.  
+Any methods loaded in the helper will be available to the template at build time.
 
 === Site resources
 
-Additional resources for a site such as css and images can be managed and built into the site using the <tt>resources</tt> directory.  All files within the resources dir get copied into your output directory upon build.
+Additional resources for a site such as css and images can be managed and built into the site using the <tt>resources</tt> directory.
+All files within the resources dir get copied into your output directory upon build.
