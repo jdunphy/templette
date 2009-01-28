@@ -13,12 +13,12 @@ module Templette
 
   class Template
     TEMPLATE_DIR = 'templates' unless defined?(TEMPLATE_DIR)
-    TEMPLATE_LIB_DIR = 'templates'
+    TEMPLATE_LIB_DIR = 'engines'
     
     TEMPLATES = {
-      'erb' => {:file => File.dirname(__FILE__) + "/#{TEMPLATE_LIB_DIR}/erb_template.rb", 
+      'erb' => {:file => File.dirname(__FILE__) + "/#{TEMPLATE_LIB_DIR}/erb.rb", 
                 :class => :ErbTemplate},
-      'haml' => {:file => File.dirname(__FILE__) + "/#{TEMPLATE_LIB_DIR}/haml_template.rb", 
+      'haml' => {:file => File.dirname(__FILE__) + "/#{TEMPLATE_LIB_DIR}/haml.rb", 
                   :class => :HamlTemplate}
     }
     
