@@ -7,6 +7,9 @@ module Templette
   # * template.html.haml   
   # * template.html.erb   
   # * template.html  -> defaults to ERB   
+  # 
+  # Additional templating languages can be supported by adding a class in the Templette module which 
+  # implements do_render(html, the_binding) in the templates/ folder, named appropriately.
 
   class Template
     TEMPLATE_DIR = 'templates' unless defined?(TEMPLATE_DIR)
@@ -30,14 +33,17 @@ module Templette
     
     def render(the_binding)
       raise TemplateError.new(self, "Template rendering failed.  File not found.") unless File.exists?(path)
-      if type == 'erb'
-        ERB.new(to_html, 0, "%<>").result(the_binding)
-      elsif type == 'haml'
-        Haml::Engine.new(to_html).render(the_binding)
-      else
-        raise TemplateError.new(self, "Rendering engine #{type} is not supported!")
-      end
+      lib_file = File.dirname(__FILE__) +"/templates/#{type}_template"
+      raise TemplateError.new(self, "Rendering engine #{type} is not supported!") unless File.exists?(lib_file + ".rb")
+      require lib_file
+      template = Templette.const_get("#{type.capitalize}Template".to_sym).new
+      template.do_render(to_html, the_binding)
     end
+
+    protected
+      def to_html
+        File.read(path)
+      end    
 
     private
       def path
@@ -46,10 +52,6 @@ module Templette
       
       def type
         path.match(/html\.?(\w+)?/)[1] || 'erb'
-      end
-      
-      def to_html
-        File.read(path)
-      end
+      end      
   end
 end
