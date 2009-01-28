@@ -1,10 +1,10 @@
 require 'haml'
 
 module Templette
-  class HamlTemplate
+  class Haml
     
     def do_render(html, the_binding)
-      Haml::Engine.new(html).render(the_binding)
+      ::Haml::Engine.new(html).render(the_binding)
     end
     
   end

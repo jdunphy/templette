@@ -13,14 +13,6 @@ module Templette
 
   class Template
     TEMPLATE_DIR = 'templates' unless defined?(TEMPLATE_DIR)
-    TEMPLATE_LIB_DIR = 'engines'
-    
-    TEMPLATES = {
-      'erb' => {:file => File.dirname(__FILE__) + "/#{TEMPLATE_LIB_DIR}/erb.rb", 
-                :class => :ErbTemplate},
-      'haml' => {:file => File.dirname(__FILE__) + "/#{TEMPLATE_LIB_DIR}/haml.rb", 
-                  :class => :HamlTemplate}
-    }
     
     attr_accessor :name
     
@@ -42,11 +34,9 @@ module Templette
     
     def render(the_binding)
       raise TemplateError.new(self, "Template rendering failed.  File not found.") unless File.exists?(path)
-      spec = TEMPLATES[type]
-      raise TemplateError.new(self, "Rendering engine #{type} is not supported!") if spec.nil?
-      require spec[:file]
-      template = Templette.const_get(spec[:class]).new
-      template.do_render(to_html, the_binding)
+      Engineer.handle_render(type, to_html, the_binding)
+    rescue RenderError => e
+      raise TemplateError.new(self, e.message)
     end
 
     private

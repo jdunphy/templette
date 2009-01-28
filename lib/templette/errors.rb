@@ -17,4 +17,7 @@ module Templette
   class PageError < TempletteError  # :nodoc:
   end
   
+  class RenderError < StandardError; # :nodoc:
+  end
+  
 end

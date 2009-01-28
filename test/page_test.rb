@@ -111,10 +111,9 @@ class PageTest < Test::Unit::TestCase
   def test_rendering_with_haml_template
     FileUtils.mkdir('out') unless File.exists?('out')
     set_pages_dir 'test_data'
+    output_file = 'out/haml_user.html'
     page = Templette::Page.new('test_data/haml_user.yml')
     page.generate('out')
-    output_file = 'out/haml_user.html'
-    
     assert File.exists?(output_file), 'output file was not generated'
     file_content = File.open(output_file) {|f| f.read}
     assert_match '<html>', file_content
