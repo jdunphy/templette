@@ -17,7 +17,7 @@ module Templette
     
       def self.load_engine(type)
         engine = @@engines[type]
-        raise RenderError.new("Rendering engine #{type} is not supported!") unless @@engines.has_key?(type)
+        raise RenderError.new("Rendering engine #{type} is not supported!") unless engine
         if engine[:loaded] != true
           require ENGINES_DIR + type
           engine[:class] = Templette.const_get(type.capitalize)
