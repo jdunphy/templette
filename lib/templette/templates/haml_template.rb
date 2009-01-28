@@ -1,3 +1,5 @@
+require 'haml'
+
 module Templette
   class HamlTemplate
     
