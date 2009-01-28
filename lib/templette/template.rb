@@ -49,12 +49,8 @@ module Templette
       template.do_render(to_html, the_binding)
     end
 
-    protected
-      def to_html
-        File.read(path)
-      end    
-
     private
+
       def path
         Dir["#{TEMPLATE_DIR}/#{@name}.html*"].first || ''
       end
@@ -62,5 +58,10 @@ module Templette
       def type
         path.match(/html\.?(\w+)?/)[1] || 'erb'
       end      
+      
+      def to_html
+        File.read(path)
+      end    
+      
   end
 end
