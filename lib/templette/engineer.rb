@@ -8,9 +8,8 @@ module Templette
       'haml' => { :loaded => false }
     }
     
-    def self.handle_render(type, template, the_binding)
-      engine = load_engine(type)
-      engine.do_render(template, the_binding)
+    def self.create_engine(type)
+      load_engine(type)
     end
     
     private 
@@ -20,7 +19,7 @@ module Templette
         raise RenderError.new("Rendering engine #{type} is not supported!") unless engine
         if engine[:loaded] != true
           require ENGINES_DIR + type
-          engine[:class] = Templette.const_get(type.capitalize)
+          engine[:class] = Templette::Engines.const_get(type.capitalize)
           engine[:loaded] = true
         end
         engine[:class].new

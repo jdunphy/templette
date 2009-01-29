@@ -8,8 +8,10 @@ module Templette
   # * template.html.erb   
   # * template.html  -> defaults to ERB   
   # 
-  # Additional templating languages can be supported by adding a class in the Templette module which 
-  # implements do_render(html, the_binding) in the templates/ folder, named appropriately.
+  # Additional templating languages can be supported by adding a class in the Templette::Engines
+  # module which implements render(html, the_binding) in the templates/engines/ folder.  Name
+  # the class the same as the 'type' for the template, and add an entry to the 
+  # Template::Engineer.engines hash.
 
   class Template
     TEMPLATE_DIR = 'templates' unless defined?(TEMPLATE_DIR)
@@ -34,7 +36,8 @@ module Templette
     
     def render(the_binding)
       raise TemplateError.new(self, "Template rendering failed.  File not found.") unless File.exists?(path)
-      Engineer.handle_render(type, to_html, the_binding)
+      engine = Engineer.create_engine(type)
+      engine.render(to_html, the_binding)
     rescue RenderError => e
       raise TemplateError.new(self, e.message)
     end

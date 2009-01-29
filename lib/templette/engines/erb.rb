@@ -1,9 +1,11 @@
 module Templette
-  class Erb
+  module Engines
+    class Erb
     
-    def do_render(html, the_binding)
-      ERB.new(html, 0, "%<>").result(the_binding)
+      def render(html, the_binding)
+        ERB.new(html, 0, "%<>").result(the_binding)
+      end
+      
     end
-    
   end
 end
