@@ -1,12 +1,12 @@
 GEM_ROOT = File.expand_path(File.dirname(__FILE__) + "/../") unless defined?(GEM_ROOT)
 TEST_ROOT = GEM_ROOT + '/test_site' unless defined?(TEST_ROOT)
 
-
 require 'test/unit'
 require 'fileutils'
 require 'rubygems'
 require GEM_ROOT + '/lib/templette'
 require 'mocha'
+require 'stringio'
 
 Dir.chdir(TEST_ROOT)
 
@@ -14,7 +14,6 @@ class Test::Unit::TestCase
   
   private
     def capture_stdout  #copied out of ZenTest and reduced
-      require 'stringio'
       orig_stdout = $stdout.dup
       captured_stdout = StringIO.new
       $stdout = captured_stdout

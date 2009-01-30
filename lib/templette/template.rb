@@ -34,10 +34,10 @@ module Templette
       ["default_helper","#{name}_helper"]
     end
     
+    # Generates the final HTML.
     def render(the_binding)
       raise TemplateError.new(self, "Template rendering failed.  File not found.") unless File.exists?(path)
-      engine = Engineer.create_engine(type)
-      engine.render(to_html, the_binding)
+      Engineer.engine_for(type).render(to_html, the_binding)
     rescue RenderError => e
       raise TemplateError.new(self, e.message)
     end

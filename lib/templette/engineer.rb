@@ -8,7 +8,7 @@ module Templette
       'haml' => { :loaded => false }
     }
     
-    def self.create_engine(type)
+    def self.engine_for(type)
       load_engine(type)
     end
     
