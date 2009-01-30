@@ -1,5 +1,6 @@
 require 'rake'
 require 'rake/rdoctask'
+require 'rake/testtask'
 
 namespace :gem do
   
@@ -20,9 +21,10 @@ namespace :gem do
 
 end   
 
-desc "Run the test suite."
-task(:test) do
-  require File.expand_path(File.dirname(__FILE__) + "/test/test_suite.rb")
+Rake::TestTask.new do |t|
+  t.libs << "."
+  t.verbose = true
+  t.pattern = 'test/*_test.rb'
 end
 
 desc 'Generate documentation for templette.'
