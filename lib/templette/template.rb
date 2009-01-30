@@ -10,8 +10,7 @@ module Templette
   # 
   # Additional templating languages can be supported by adding a class in the Templette::Engines
   # module which implements render(html, the_binding) in the templates/engines/ folder.  Name
-  # the class the same as the 'type' for the template, and add an entry to the 
-  # Template::Engineer.engines hash.
+  # the class the same as the 'type' for the template.
 
   class Template
     TEMPLATE_DIR = 'templates' unless defined?(TEMPLATE_DIR)

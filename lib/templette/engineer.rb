@@ -3,10 +3,7 @@ module Templette
     
     ENGINES_DIR = File.dirname(__FILE__) + "/engines/"
     
-    @@engines = {
-      'erb' =>  { :loaded => false },
-      'haml' => { :loaded => false }
-    }
+    @@engines = {}
     
     def self.engine_for(type)
       load_engine(type)
@@ -14,19 +11,19 @@ module Templette
     
     private 
     
-      def self.load_engine(type)
-        engine = @@engines[type]
-        raise RenderError.new("Rendering engine #{type} is not supported!") unless engine
-        if engine[:loaded] != true
+      def self.load_engine(type)        
+        unless @@engines[type]
+          unless File.exists?(ENGINES_DIR + type + '.rb')
+            raise RenderError.new("Rendering engine '#{type}' is not supported!")
+          end
           begin
             require ENGINES_DIR + type
-            engine[:class] = Templette::Engines.const_get(type.capitalize)
-            engine[:loaded] = true
+            @@engines[type] = Templette::Engines.const_get(type.capitalize)
           rescue
-            raise RenderError.new("Rendering engine #{type} failed to load!")
+            raise RenderError.new("Rendering engine '#{type}' failed to load!")
           end
         end
-        engine[:class].new
+        @@engines[type].new
       end
   end
 end
