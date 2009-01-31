@@ -6,11 +6,7 @@ module Templette
   # Templates now support ERB or Haml for rendering.  
   # * template.html.haml   
   # * template.html.erb   
-  # * template.html  -> defaults to ERB   
-  # 
-  # Additional templating languages can be supported by adding a class in the Templette::Engines
-  # module which implements render(html, the_binding) in the templates/engines/ folder.  Name
-  # the class the same as the 'type' for the template.
+  # * template.html  -> defaults to ERB 
 
   class Template
     TEMPLATE_DIR = 'templates' unless defined?(TEMPLATE_DIR)

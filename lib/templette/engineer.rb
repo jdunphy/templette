@@ -1,9 +1,20 @@
 module Templette
+
+  # The engineer is simply in charge of the engines.
+  #
+  # Additional templating languages can be supported by adding a class in the Templette::Engines
+  # module which implements render(html, the_binding) in the templates/engines/ folder.  Name
+  # the class the same as the 'type' for the template.
+  
   module Engineer
     
     ENGINES_DIR = File.dirname(__FILE__) + "/engines/"
     
     @@engines = {}
+    
+    # Takes a string type and attempts to load a rendering engine of the same name.
+    # If the Engine is found, an instance of the class will be returned.
+    # A failure to find a matching engine file will result in a RenderError.
     
     def self.engine_for(type)
       load_engine(type)
