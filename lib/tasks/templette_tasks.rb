@@ -9,7 +9,8 @@ end
 
 desc "Build and view the site locally using WEBrick"
 task(:preview) do
-  Templette::Generator.new('preview').run
+  gen = Templette::Generator.new('preview')
+  gen.run
   
   require 'webrick'
   
@@ -20,7 +21,10 @@ task(:preview) do
   )
   
   %w(INT).each do |signal|
-     trap(signal) { server.shutdown }
+    trap(signal) { 
+      server.shutdown 
+      gen.clean
+    }
   end
   
   server.start
