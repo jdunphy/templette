@@ -7,6 +7,25 @@ task(:build) do
   end
 end
 
+desc "Build and view the site locally using WEBrick"
+task(:preview) do
+  Templette::Generator.new('preview').run
+  
+  require 'webrick'
+  
+  server = WEBrick::HTTPServer.new(
+    :BindAddress     =>    "localhost",
+    :Port            =>    4444,
+    :DocumentRoot    =>    'preview/'
+  )
+  
+  %w(INT).each do |signal|
+     trap(signal) { server.shutdown }
+  end
+  
+  server.start
+end
+
 desc "Remove all generated files"
 task :clean do
   Templette::Generator.new.clean
