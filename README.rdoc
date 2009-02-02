@@ -37,3 +37,9 @@ Any methods loaded in the helper will be available to the template at build time
 
 Additional resources for a site such as css and images can be managed and built into the site using the <tt>resources</tt> directory.
 All files within the resources dir get copied into your output directory upon build.
+
+=== Preview
+
+Run <tt>rake preview</tt> to see your project in a web browser.
+The preview task will build your project in a temporary 'preview' directory.
+WEBrick will boot and serve your project up on <tt>localhost:4444</tt>.
