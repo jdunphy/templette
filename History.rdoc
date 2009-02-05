@@ -1,0 +1,10 @@
+== 0.4.0 2009-02-04
+
+* Templates can use HAML or ERB now
+* Preview mode!  rake preview
+
+== 0.3.2 2008-09-29
+
+== Earlier: ???
+
+* I'm lazy

@@ -33,6 +33,7 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.title    = 'Templette'
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('README.rdoc')
+  rdoc.rdoc_files.include('History.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
