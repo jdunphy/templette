@@ -34,7 +34,7 @@ module Templette
           v = File.open($1) {|f| f.read}
         elsif v.nil?
           v = Page::Section.new(page, {})
-        elsif v =~/render:(.*)/
+        elsif v =~/render[:\ ](.*)/
           instance_eval "
           def #{k.to_s}
             partial '#{$1.strip}'
