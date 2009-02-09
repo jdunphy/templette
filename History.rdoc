@@ -1,3 +1,7 @@
+== HEAD
+
+* Page html sections can be rendered now
+
 == 0.4.0 2009-02-04
 
 * Templates can use HAML or ERB now

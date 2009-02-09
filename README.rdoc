@@ -27,6 +27,10 @@ Template rendering supports multiple rendering engines now, with one or two more
 Simply name templates with their rendering engine name as the final file extension. Like `template.html.haml`.
 More details are in Templette::Template.
 
+Now the internal html snippets can be rendered from erb or haml as well.
+This is handy if you prefer to maintain your markup as haml, or if you have parts of your site that could be DRYer.
+Instead of specifying a file as  `file:text.html`, now you can write `render text.html.haml`.
+
 === Helper support
 
 Automate content and avoid having to update transient information.  
