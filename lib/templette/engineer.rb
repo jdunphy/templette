@@ -20,6 +20,10 @@ module Templette
       load_engine(type)
     end
     
+    def self.determine_type(filename)
+      filename.match(/html\.?(\w+)?/)[1] || 'erb'
+    end
+    
     private 
     
       def self.load_engine(type)        

@@ -1,0 +1,6 @@
+template_name: hammy
+sections:
+  title:
+    text: Home
+  main:
+   content: render test_data/hammy.html.haml

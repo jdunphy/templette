@@ -16,6 +16,13 @@ module Templette
       raise PageError.new(page, "No method '#{symbol}' defined in the yaml")
     end
 
+    def partial(filename)
+      raise PageError.new(page, "Rendering #{filename} failed.  File not found.") unless File.exists?(filename)
+      Engineer.engine_for(Engineer.determine_type(filename)).render(File.read(filename), self)
+    rescue RenderError => e
+      raise PageError.new(page, e.message)      
+    end
+    
     private
     
       def generate_accessor(k, v)
@@ -27,6 +34,12 @@ module Templette
           v = File.open($1) {|f| f.read}
         elsif v.nil?
           v = Page::Section.new(page, {})
+        elsif v =~/render[:\ ](.*)/
+          instance_eval "
+          def #{k.to_s}
+            partial '#{$1.strip}'
+          end"
+         return
         end
         attributes[k.to_s] = v
         instance_eval "def #{k.to_s}; attributes['#{k.to_s}']; end"

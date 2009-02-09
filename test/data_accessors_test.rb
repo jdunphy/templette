@@ -45,6 +45,18 @@ class DataAccessorsTest < Test::Unit::TestCase
     assert_equal 'foo', boo
   end
   
+  def test_generate_accessors_with_render_colon_should_make_method_that_calls_partial
+    self.expects(:partial).returns("partial string")
+    generate_accessors :file_node => 'render:foo.html.haml'
+    file_node
+  end
+  
+  def test_generate_accessors_with_render_space_should_make_method_that_calls_partial
+    self.expects(:partial).returns("partial string")
+    generate_accessors :file_node => 'render foo.html.haml'
+    file_node    
+  end
+  
   def test_generate_accessors_should_raise_error_if_missing_file_is_requested
     self.expects(:page).returns(stub('page_object', :name => 'FAKE PAGE'))
     error = assert_raise(Templette::PageError) { generate_accessors :file_node => 'file:404esque.html'}
