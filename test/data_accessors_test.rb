@@ -63,4 +63,17 @@ class DataAccessorsTest < Test::Unit::TestCase
     assert_equal 'PageError - FAKE PAGE: File requested by :file_node no found!', error.to_s
   end
   
+  def test_image_tag
+    assert_equal "<img src='/images/foo.jpg' alt='' />", image_tag('foo.jpg')
+    assert_equal "<img src='/images/foo.jpg' alt='a foo' />", image_tag('foo.jpg', 'a foo')
+  end
+  
+  def test_stylesheet_tag
+    assert_equal "<link href='/stylesheets/main.css' type='text/css' />", stylesheet_tag('main')
+  end
+  
+  def test_script_tag
+    assert_equal "<script src='/javascripts/application.js' type='text/javascript'></script>", script_tag('application')
+  end
+  
 end

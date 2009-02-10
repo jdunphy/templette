@@ -23,6 +23,18 @@ module Templette
       raise PageError.new(page, e.message)      
     end
     
+    def image_tag(path, alt_text = nil)
+      "<img src='/images/#{path}' alt='#{alt_text}' />"
+    end
+    
+    def stylesheet_tag(path)
+      "<link href='/stylesheets/#{path}.css' type='text/css' />"
+    end
+    
+    def script_tag(path)
+      "<script src='/javascripts/#{path}.js' type='text/javascript'></script>"
+    end
+    
     private
     
       def generate_accessor(k, v)
