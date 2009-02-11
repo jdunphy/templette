@@ -28,8 +28,9 @@ module Templette
       "<img src='/images/#{path}' #{params_to_attributes(options)}/>"
     end
     
-    def stylesheet_tag(path)
-      "<link href='/stylesheets/#{path}.css' type='text/css' />"
+    def stylesheet_tag(path, options = {})
+      options = {:type => 'text/css'}.merge(options)
+      "<link href='/stylesheets/#{path}.css' #{params_to_attributes(options)}/>"
     end
     
     def script_tag(path)

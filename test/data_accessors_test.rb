@@ -70,6 +70,8 @@ class DataAccessorsTest < Test::Unit::TestCase
   
   def test_stylesheet_tag
     assert_equal "<link href='/stylesheets/main.css' type='text/css' />", stylesheet_tag('main')
+    assert_match "media='screen'", stylesheet_tag('main', :media => 'screen')
+    assert_match "type='text/css'", stylesheet_tag('main', :media => 'screen')
   end
   
   def test_script_tag
