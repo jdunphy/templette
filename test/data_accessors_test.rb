@@ -64,8 +64,8 @@ class DataAccessorsTest < Test::Unit::TestCase
   end
   
   def test_image_tag
-    assert_equal "<img src='/images/foo.jpg' alt='' />", image_tag('foo.jpg')
-    assert_equal "<img src='/images/foo.jpg' alt='a foo' />", image_tag('foo.jpg', 'a foo')
+    assert_equal "<img src='/images/foo.jpg' alt='foo.jpg' />", image_tag('foo.jpg')
+    assert_equal "<img src='/images/foo.jpg' alt='a foo' />", image_tag('foo.jpg', :alt => 'a foo')
   end
   
   def test_stylesheet_tag

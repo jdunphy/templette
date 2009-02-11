@@ -23,8 +23,9 @@ module Templette
       raise PageError.new(page, e.message)      
     end
     
-    def image_tag(path, alt_text = nil)
-      "<img src='/images/#{path}' alt='#{alt_text}' />"
+    def image_tag(path, options = {})
+      options = {:alt => path}.merge(options)
+      "<img src='/images/#{path}' #{params_to_attributes(options)}/>"
     end
     
     def stylesheet_tag(path)
@@ -36,6 +37,12 @@ module Templette
     end
     
     private
+    
+      def params_to_attributes(options)
+        options.inject('') do |str, h|
+          str << "#{h[0]}='#{h[1]}' "
+        end
+      end
     
       def generate_accessor(k, v)
         raise TempletteError.new(page, "Method already defined: #{k}.  Change your config file and stop using it!") if self.methods.include?(k.to_s)
