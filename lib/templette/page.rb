@@ -60,6 +60,8 @@ module Templette
         f << @template.render(binding)
       end
     end
+    
+    def _binding; binding; end
 
     # A requriement of the Templette::DataAccessors interface.  Returns self.
     def page; self end

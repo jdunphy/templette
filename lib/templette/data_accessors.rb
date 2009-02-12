@@ -18,7 +18,7 @@ module Templette
 
     def partial(filename)
       raise PageError.new(page, "Rendering #{filename} failed.  File not found.") unless File.exists?(filename)
-      Engineer.engine_for(Engineer.determine_type(filename)).render(File.read(filename), self)
+      Engineer.engine_for(Engineer.determine_type(filename)).render(File.read(filename), page._binding)
     rescue RenderError => e
       raise PageError.new(page, e.message)      
     end
