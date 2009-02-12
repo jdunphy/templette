@@ -126,16 +126,16 @@ class PageTest < Test::Unit::TestCase
   end
   
   def test_rendering_with_haml_partial
-      FileUtils.mkdir('out') unless File.exists?('out')
-      set_pages_dir 'test_data'
-      output_file = 'out/template_with_render.html'
-      page = Templette::Page.new('test_data/template_with_render.yml')
-      page.generate('out')
-      assert File.exists?(output_file), 'output file was not generated'
-      file_content = File.open(output_file) {|f| f.read}
-      assert_match '<p>I am some haml!</p>', file_content
-    ensure
-      File.delete(output_file) if File.exists?(output_file)
+    FileUtils.mkdir('out') unless File.exists?('out')
+    set_pages_dir 'test_data'
+    output_file = 'out/template_with_render.html'
+    page = Templette::Page.new('test_data/template_with_render.yml')
+    page.generate('out')
+    assert File.exists?(output_file), 'output file was not generated'
+    file_content = File.open(output_file) {|f| f.read}
+    assert_match '<p>I am some haml!</p>', file_content
+  ensure
+    File.delete(output_file) if File.exists?(output_file)
   end
   
   def test_rendering_with_methods_in_rendered_partials
