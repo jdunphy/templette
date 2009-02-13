@@ -37,6 +37,10 @@ Automate content and avoid having to update transient information.
 By default, a helper will automatically load a helper that shares its name.  
 Any methods loaded in the helper will be available to the template at build time.
 
+=== Standard tag methods
+
+Rendered html now supports `image_tag`, `stylesheet_tag` and `script_tag`. Documentation on the individual methods is in Templette::DataAccessors.
+
 === Site resources
 
 Additional resources for a site such as css and images can be managed and built into the site using the <tt>resources</tt> directory.

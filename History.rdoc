@@ -1,6 +1,8 @@
 == HEAD
 
 * Page html sections can be rendered now
+* Inner renders now support helpers too
+* image, stylesheet and script tags
 
 == 0.4.0 2009-02-04
 
