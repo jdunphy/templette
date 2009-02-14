@@ -1,4 +1,4 @@
-== HEAD
+== 0.4.1 2009-02-14
 
 * Page html sections can be rendered now
 * Inner renders now support helpers too
