@@ -87,4 +87,10 @@ class DataAccessorsTest < Test::Unit::TestCase
     Templette::config[:site_root] = '/'
   end
   
+  def test_tags_with_http_protocol_dont_get_modified
+    assert_equal "<img src='http://foo.com/images/foo.jpg' alt='foo' />", image_tag('http://foo.com/images/foo.jpg', :alt => 'foo')
+    assert_equal "<link href='http://foo.com/stylesheets/main.css' type='text/css' />", stylesheet_tag('http://foo.com/stylesheets/main.css')
+    assert_equal "<script src='http://foo.com/lib.js' type='text/javascript'></script>", script_tag('http://foo.com/lib.js')
+  end
+  
 end
