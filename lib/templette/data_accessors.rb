@@ -31,7 +31,7 @@ module Templette
     
     def image_tag(path, options = {})
       options = {:alt => path}.merge(options)
-      "<img src='/images/#{path}' #{params_to_attributes(options)}/>"
+      "<img src='#{Templette.config[:site_root]}images/#{path}' #{params_to_attributes(options)}/>"
     end
     
     # Generates a link to a stylesheet.  Default options {:type => 'text/css'}
@@ -42,7 +42,7 @@ module Templette
     
     def stylesheet_tag(path, options = {})
       options = {:type => 'text/css'}.merge(options)
-      "<link href='/stylesheets/#{path}.css' #{params_to_attributes(options)}/>"
+      "<link href='#{Templette.config[:site_root]}stylesheets/#{path}.css' #{params_to_attributes(options)}/>"
     end
     
     # Genrates a javascript scrip tag.
@@ -52,7 +52,7 @@ module Templette
     #     => <script src='/javascripts/slider.js' type='text/javascript'></script>
     
     def script_tag(path)
-      "<script src='/javascripts/#{path}.js' type='text/javascript'></script>"
+      "<script src='#{Templette.config[:site_root]}javascripts/#{path}.js' type='text/javascript'></script>"
     end
     
     private

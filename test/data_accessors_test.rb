@@ -78,4 +78,13 @@ class DataAccessorsTest < Test::Unit::TestCase
     assert_equal "<script src='/javascripts/application.js' type='text/javascript'></script>", script_tag('application')
   end
   
+  def test_tags_with_set_site_root
+    Templette::config[:site_root] = '/subdir/'
+    assert_equal "<img src='/subdir/images/foo.jpg' alt='foo.jpg' />", image_tag('foo.jpg')
+    assert_equal "<link href='/subdir/stylesheets/main.css' type='text/css' />", stylesheet_tag('main')
+    assert_equal "<script src='/subdir/javascripts/application.js' type='text/javascript'></script>", script_tag('application')
+  ensure
+    Templette::config[:site_root] = '/'
+  end
+  
 end
