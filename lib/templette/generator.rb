@@ -7,13 +7,13 @@ module Templette
     end
   
     def run
-      FileUtils.mkdir(@out_dir) unless File.exists?(@out_dir)
+      FileUtils.mkdir_p(output_location) unless File.exists?(output_location)
       pages = Page.find_all
       puts "Generating site in: #{@out_dir}; contains #{pages.size} pages"
       pages.each do |page|
         puts "Generating page #{page.name} using template #{page.template.name}"
         begin
-          page.generate(@out_dir)
+          page.generate(output_location)
         rescue Templette::TempletteError => e
           @errors.push(e)
         end
@@ -30,6 +30,10 @@ module Templette
         puts "SITE GENERATED WITH ERRORS!"
         @errors.each { |e| puts e.message }
       end 
+    end
+    
+    def output_location
+      @out_dir + Templette::config[:site_root]
     end
     
     def clean

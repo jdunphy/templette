@@ -60,6 +60,18 @@ class GeneratorTest < Test::Unit::TestCase
     assert !File.exist?('no_such_resources')
     assert_successfully_generated { Templette::Generator.new('out', 'no_such_resources').run }
   end
+  
+  def test_should_generate_site_into_custom_site_root
+    Templette::config[:site_root] = '/test/'
+    assert_successfully_generated { Templette::Generator.new.run } 
+    assert File.exists?(TEST_ROOT + '/out/test/index.html')
+    file_content = File.open(TEST_ROOT + '/out/test/index.html') {|f| f.read}
+    assert_match '<html>', file_content
+    assert_match '</html>', file_content
+    assert_match 'This is the content.', file_content
+  ensure
+    Templette::config[:site_root] = '/'
+  end
 
   def teardown
     FileUtils.rm_rf(TEST_ROOT + "/out") if File.exist?(TEST_ROOT + "/out")
