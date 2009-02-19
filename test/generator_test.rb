@@ -63,12 +63,11 @@ class GeneratorTest < Test::Unit::TestCase
   
   def test_should_generate_site_into_custom_site_root
     Templette::config[:site_root] = '/test/'
-    assert_successfully_generated { Templette::Generator.new.run } 
+    output = capture_stdout { Templette::Generator.new.run }.string 
+    assert_match "Generating site in: out/test", output
+    assert_match "Site generation complete!", output
+    assert_match "Copying resources from resources to out/test", output
     assert File.exists?(TEST_ROOT + '/out/test/index.html')
-    file_content = File.open(TEST_ROOT + '/out/test/index.html') {|f| f.read}
-    assert_match '<html>', file_content
-    assert_match '</html>', file_content
-    assert_match 'This is the content.', file_content
   ensure
     Templette::config[:site_root] = '/'
   end

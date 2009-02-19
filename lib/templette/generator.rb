@@ -9,7 +9,7 @@ module Templette
     def run
       FileUtils.mkdir_p(output_location) unless File.exists?(output_location)
       pages = Page.find_all
-      puts "Generating site in: #{@out_dir}; contains #{pages.size} pages"
+      puts "Generating site in: #{output_location}; contains #{pages.size} pages"
       pages.each do |page|
         puts "Generating page #{page.name} using template #{page.template.name}"
         begin
@@ -20,8 +20,8 @@ module Templette
       end
 
       if File.exists?(@resources_dir)
-        puts "Copying resources from #{@resources_dir} to #{@out_dir}"
-        FileUtils.cp_r("#{@resources_dir}/.", @out_dir)
+        puts "Copying resources from #{@resources_dir} to #{output_location}"
+        FileUtils.cp_r("#{@resources_dir}/.", output_location)
       end
 
       if @errors.empty?
