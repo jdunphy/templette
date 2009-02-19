@@ -68,6 +68,9 @@ class GeneratorTest < Test::Unit::TestCase
     assert_match "Site generation complete!", output
     assert_match "Copying resources from resources to out/test", output
     assert File.exists?(TEST_ROOT + '/out/test/index.html')
+    assert File.exists?(TEST_ROOT + '/out/test/subdir/index.html')
+    assert File.exist?(TEST_ROOT + '/out/test/javascript/main.js')
+    
   ensure
     Templette::config[:site_root] = '/'
   end
