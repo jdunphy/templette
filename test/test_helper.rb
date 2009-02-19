@@ -8,8 +8,6 @@ require GEM_ROOT + '/lib/templette'
 require 'mocha'
 require 'stringio'
 
-Dir.chdir(TEST_ROOT)
-
 class Test::Unit::TestCase 
   
   private
@@ -24,6 +22,9 @@ class Test::Unit::TestCase
       $stdout = orig_stdout
     end
     
+    def setup 
+      Dir.chdir(TEST_ROOT)
+    end
 
     def set_pages_dir(path)
       Templette::Page.pages_dir = path

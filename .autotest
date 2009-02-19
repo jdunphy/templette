@@ -1,0 +1,10 @@
+
+Autotest.add_hook :initialize do |autotest|
+  autotest.add_mapping(/test\/.+_test\.rb/) do |filename, _|
+    filename
+  end
+
+  autotest.add_mapping(/lib\/templette\/(.+)\.rb/) do |filename, m|
+    "/test/#{m[1]}_test.rb"
+  end
+end
