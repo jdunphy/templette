@@ -1,5 +1,9 @@
+task :load_config do
+  Templette::load_config_from_file
+end
+
 desc "Build an HTML project from template files"
-task(:build) do
+task(:build => :load_config) do
   if ENV['destination']
     Templette::Generator.new(ENV['destination']).run
   else
@@ -8,7 +12,7 @@ task(:build) do
 end
 
 desc "Build and view the site locally using WEBrick"
-task(:preview) do
+task(:preview => :load_config) do
   gen = Templette::Generator.new('preview')
   gen.run
   
