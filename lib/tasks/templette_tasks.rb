@@ -72,6 +72,11 @@ namespace :generate do
     require 'file_generator'
     FileGenerator.helper(ENV['name'])
   end 
+  
+  desc "Generate a config file"
+  task :config do
+    FileGenerator.config
+  end
 
 end
 

@@ -30,6 +30,17 @@ module FileGenerator
 end"
       end
     end
+    
+    def config
+      if File.exists?("config.rb")
+        puts 'Config file already exists!'
+      else
+        File.open("config.rb", 'w') do |f|
+          f << "# A site root can be set like this
+# Templette::config[:site_root] = '/new_root/'"
+        end
+      end
+    end
   end
   
 end
