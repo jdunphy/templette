@@ -77,14 +77,24 @@ class DataAccessorsTest < Test::Unit::TestCase
     assert_equal "<script src='/javascripts/application.js' type='text/javascript'></script>", script_tag('application')
   end
   
-  def test_tags_with_set_site_root
-    Templette::config[:site_root] = '/subdir/'
-    assert_equal "<img src='/subdir/images/foo.jpg' alt='foo.jpg' />", image_tag('foo.jpg')
-    assert_equal "<link href='/subdir/stylesheets/main.css' type='text/css' />", stylesheet_tag('main')
-    assert_equal "<script src='/subdir/javascripts/application.js' type='text/javascript'></script>", script_tag('application')
-  ensure
-    Templette::config[:site_root] = '/'
+  context "A set site root" do
+    setup { Templette::config[:site_root] = '/subdir/' }
+    
+    should "affect image tags" do 
+      assert_equal "<img src='/subdir/images/foo.jpg' alt='foo.jpg' />", image_tag('foo.jpg')
+    end
+    
+    should "affect stylesheet tag" do
+      assert_equal "<link href='/subdir/stylesheets/main.css' type='text/css' />", stylesheet_tag('main')
+    end
+    
+    should "affect javascript tag" do
+      assert_equal "<script src='/subdir/javascripts/application.js' type='text/javascript'></script>", script_tag('application')
+    end
+    
+    teardown { Templette::config[:site_root] = '/'}
   end
+  
   
   def test_tags_with_http_protocol_dont_get_modified
     assert_equal "<img src='http://foo.com/images/foo.jpg' alt='foo' />", image_tag('http://foo.com/images/foo.jpg', :alt => 'foo')
