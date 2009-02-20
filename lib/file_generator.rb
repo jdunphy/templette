@@ -31,6 +31,9 @@ end"
       end
     end
     
+    # Called by rake generate:config
+    #
+    # Generates a default config.rb file, with usage examples present and commented out.
     def config
       if File.exists?("config.rb")
         puts 'Config file already exists!'
