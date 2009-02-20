@@ -1,4 +1,3 @@
-require File.dirname(__FILE__) + '/templette'
 module FileGenerator
     
   class << self
@@ -38,10 +37,7 @@ end"
       if File.exists?("config.rb")
         puts 'Config file already exists!'
       else
-        File.open("config.rb", 'w') do |f|
-          f << "# A site root can be set like this
-# Templette::config[:site_root] = '/new_root/'"
-        end
+        FileUtils.cp(File.dirname(__FILE__) + '/../files/config.rb', 'config.rb')
       end
     end
   end

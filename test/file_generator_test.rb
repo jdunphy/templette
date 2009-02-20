@@ -62,6 +62,7 @@ class FileGeneratorTest < Test::Unit::TestCase
     file_path = TEST_ROOT + '/config.rb'
     FileGenerator.config
     assert File.exists?(file_path)
+    assert_match /# Templette::config\[:site_root\] =/, File.read(file_path)
   ensure
     FileUtils.rm(file_path) if File.exists?(file_path)    
   end

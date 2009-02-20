@@ -75,6 +75,7 @@ namespace :generate do
   
   desc "Generate a config file"
   task :config do
+    require 'file_generator'
     FileGenerator.config
   end
 
