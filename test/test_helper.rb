@@ -5,6 +5,7 @@ require 'test/unit'
 require 'fileutils'
 require 'rubygems'
 require GEM_ROOT + '/lib/templette'
+require 'shoulda'
 require 'mocha'
 require 'stringio'
 

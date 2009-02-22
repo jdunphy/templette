@@ -1,6 +1,9 @@
 require 'rake'
 require 'rake/rdoctask'
 require 'rake/testtask'
+require 'rubygems'
+require 'rcov'
+require 'rcov/rcovtask'
 
 namespace :gem do
   
@@ -25,6 +28,14 @@ Rake::TestTask.new do |t|
   t.libs << "."
   t.verbose = true
   t.pattern = 'test/*_test.rb'
+end
+
+namespace :rcov do 
+  Rcov::RcovTask.new do |t|
+    t.name = "all"
+    t.libs << "lib"
+    t.test_files = FileList['test/*_test.rb']
+  end
 end
 
 desc 'Generate documentation for templette.'
