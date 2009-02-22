@@ -3,22 +3,21 @@ require GEM_ROOT + '/lib/file_generator'
 
 class FileGeneratorTest < Test::Unit::TestCase
   
-  def test_helper_gerator_should_create_file
-    file_path = TEST_ROOT + '/helpers/foo_helper.rb'
-    assert !File.exists?(file_path)
-    FileGenerator.helper('foo')
-    assert File.exists?(file_path)
-  ensure  
-    FileUtils.rm(file_path) if File.exists?(file_path)
-  end
-  
-  def test_generated_helper_file_should_contain_helper_module
-    file_path = TEST_ROOT + '/helpers/foo_helper.rb'
-    FileGenerator.helper('foo')
-    helper_contents = File.read(file_path)
-    assert_match "module FooHelper", helper_contents
-  ensure  
-    FileUtils.rm(file_path) if File.exists?(file_path)  
+  context "generating a helper" do
+    setup do
+      @file_path = TEST_ROOT + '/helpers/foo_helper.rb'
+      FileGenerator.helper('foo')
+    end
+    teardown { FileUtils.rm(@file_path) if File.exists?(@file_path) }
+    
+    should "create the file" do
+      assert File.exists?(@file_path)
+    end
+    
+    should "contain a helper module" do
+      helper_contents = File.read(@file_path)
+      assert_match "module FooHelper", helper_contents
+    end
   end
   
   def test_should_generate_page_yaml_file
@@ -58,23 +57,22 @@ class FileGeneratorTest < Test::Unit::TestCase
     FileUtils.rm_rf(TEST_ROOT + '/pages/new-subdir') 
   end
   
-  def test_generate_config_should_generate_a_config
-    file_path = TEST_ROOT + '/config.rb'
-    FileGenerator.config
-    assert File.exists?(file_path)
-    assert_match /# Templette::config\[:site_root\] =/, File.read(file_path)
-  ensure
-    FileUtils.rm(file_path) if File.exists?(file_path)    
-  end
-  
-  def test_generate_config_should_not_overwrite_a_file_thats_already_there
-    file_path = TEST_ROOT + '/config.rb'
-    File.open(file_path, 'w') {|f| f << "# In the config file" }
-    output = capture_stdout { FileGenerator.config}.string
-    assert_match /In the config file/, File.read(file_path)
-    assert_match /Config file already exists!/, output
-  ensure
-    FileUtils.rm(file_path) if File.exists?(file_path)    
+  context "generating a config file" do
+    setup { @file_path = TEST_ROOT + '/config.rb' }
+    teardown { FileUtils.rm(@file_path) if File.exists?(@file_path) }
+    
+    should "generate a config file as expected" do
+      FileGenerator.config
+      assert File.exists?(@file_path)
+      assert_match /# Templette::config\[:site_root\] =/, File.read(@file_path)
+    end
+    
+    should "not overwrite an existing config file" do
+      File.open(@file_path, 'w') {|f| f << "# In the config file" }
+      output = capture_stdout { FileGenerator.config}.string
+      assert_match /In the config file/, File.read(@file_path)
+      assert_match /Config file already exists!/, output
+    end
   end
   
 end
