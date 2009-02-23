@@ -1,4 +1,4 @@
-= Templette 0.4.1
+= Templette 0.5.0
 
 A Ruby static HTML templating gem.
 

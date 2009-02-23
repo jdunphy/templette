@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
 
   s.name = 'templette'
   s.author = "Jacob Dunphy and Steve Holder"
-  s.version = '0.4.1.1'
+  s.version = '0.5.0'
   s.summary = 'HTML site generation through templates'
   
   s.files = FileList['lib/**/*.rb', 'bin/*', 'files/*'].to_a
