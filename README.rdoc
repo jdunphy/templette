@@ -37,9 +37,18 @@ Automate content and avoid having to update transient information.
 By default, a helper will automatically load a helper that shares its name.  
 Any methods loaded in the helper will be available to the template at build time.
 
+=== Definable site root
+
+A subdirectory can be set as the project root.
+Generated page and resource directories will be built into a given subdirectory.
+An example can be found in the config.rb file generated in new projects, or by running rake generate:config.
+
 === Standard tag methods
 
-Rendered html now supports `image_tag`, `stylesheet_tag` and `script_tag`. Documentation on the individual methods is in Templette::Helpers.
+Rendered html now supports `image_tag`, `stylesheet_tag` and `script_tag`.
+These methods will recognize a site root, as described above, and build links accordingly.
+Documentation on the individual methods is in Templette::Helpers.
+
 
 === Site resources
 

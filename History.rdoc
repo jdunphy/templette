@@ -1,3 +1,10 @@
+== 0.5.0 2009-02-23
+
+* Helpers get their own module
+* config.rb for configurable settings in the project
+* Definable site root, allowing you to set up projects in subdirectories
+* Smarter tag methods, which pay attention to the path entered and the site root
+
 == 0.4.1 2009-02-14
 
 * Page html sections can be rendered now
