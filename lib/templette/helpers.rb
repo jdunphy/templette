@@ -1,4 +1,10 @@
 module Templette
+  
+  # Standard tag helpers to attempt to make life a little easier.
+  # Tag methods will not modify full paths (with an http protocol).
+  # If a tag is just a local path, it will heed the configurable site_root,
+  # and prepend the necessary directories to build the anticipated path.
+  
   module Helpers
     
     # Generates an image tag.  Default options {:alt => filename }
@@ -6,6 +12,9 @@ module Templette
     # Ex. 
     #    image_tag('ball.png', :alt => 'a red ball')
     #    => "<img src='/images/ball.png' alt='a red ball' />"
+    
+    #    image_tag('http://flickr.com/hilarious-picture.jpg', :alt => 'lol!')
+    #    => "<img src='http://flickr.com/hilarious-picture.jpg' alt='lol!' />"
     
     def image_tag(path, options = {})
       options = {:alt => path}.merge(options)
