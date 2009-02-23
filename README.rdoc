@@ -39,7 +39,7 @@ Any methods loaded in the helper will be available to the template at build time
 
 === Standard tag methods
 
-Rendered html now supports `image_tag`, `stylesheet_tag` and `script_tag`. Documentation on the individual methods is in Templette::DataAccessors.
+Rendered html now supports `image_tag`, `stylesheet_tag` and `script_tag`. Documentation on the individual methods is in Templette::Helpers.
 
 === Site resources
 
