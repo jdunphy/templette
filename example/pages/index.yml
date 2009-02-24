@@ -1,0 +1,4 @@
+--- 
+sections: 
+  body: render pages/index.html.haml
+template_name: main
