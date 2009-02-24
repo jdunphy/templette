@@ -15,7 +15,7 @@ module Templette
     
     # The name parameter refers to the actual filename of the template.  To load
     # templates/foo.html, a template_name of 'foo' should be given.
-    def initialize(name, default_engine = 'erb')
+    def initialize(name, default_engine = Templette::config[:default_engine])
       @name = name
       @default_engine = default_engine
     end
