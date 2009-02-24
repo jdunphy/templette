@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %title Templette
+  %body
+    %h1 Templette
+    .nav
+      %a{:href=>'/'} Templette
+      %a{:href=>'/rdoc'}Rdoc
+    .content= body
+    .footer
+      Last updated:
+      = current_date
