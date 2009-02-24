@@ -44,4 +44,10 @@ class HelpersTest < Test::Unit::TestCase
     assert_equal "<script src='http://foo.com/lib.js' type='text/javascript'></script>", script_tag('http://foo.com/lib.js')
   end
   
+  def test_tags_with_https_protocol_dont_get_modified
+    assert_equal "<img src='https://foo.com/images/foo.jpg' alt='foo' />", image_tag('https://foo.com/images/foo.jpg', :alt => 'foo')
+    assert_equal "<link href='https://foo.com/stylesheets/main.css' type='text/css' />", stylesheet_tag('https://foo.com/stylesheets/main.css')
+    assert_equal "<script src='https://foo.com/lib.js' type='text/javascript'></script>", script_tag('https://foo.com/lib.js')
+  end
+  
 end

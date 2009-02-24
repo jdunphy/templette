@@ -45,7 +45,7 @@ module Templette
     private
     
       def tag_path(path, asset_subdir, file_ext = nil)
-        if path =~ /http:\/\//
+        if path =~ /http(s?):\/\//
           path
         else
           "#{Templette.config[:site_root]}#{asset_subdir}/#{path}#{ "."+file_ext if file_ext }"
