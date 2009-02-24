@@ -1,0 +1,5 @@
+require 'rake'
+require 'rubygems'
+gem 'templette'
+require 'templette'
+require 'tasks/templette_tasks'
