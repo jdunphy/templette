@@ -7,7 +7,7 @@ end
 module Templette
   CONFIG_FILE_PATH = 'config.rb'
   
-  @@config = {:site_root => '/' }
+  @@config = {:site_root => '/', :default_engine => 'erb' }
   
   def self.config
     @@config

@@ -21,7 +21,7 @@ module Templette
     end
     
     def self.determine_type(filename)
-      filename.match(/html\.?(\w+)?/)[1] || 'erb'
+      filename.match(/html\.?(\w+)?/)[1] || Templette::config[:default_engine]
     end
     
     private 

@@ -15,8 +15,9 @@ module Templette
     
     # The name parameter refers to the actual filename of the template.  To load
     # templates/foo.html, a template_name of 'foo' should be given.
-    def initialize(name)
-      @name = name      
+    def initialize(name, default_engine = 'erb')
+      @name = name
+      @default_engine = default_engine
     end
     
     # Generates the yaml necessary to render empty page yaml files.
@@ -44,7 +45,7 @@ module Templette
       end
       
       def type
-        path.match(/html\.?(\w+)?/)[1] || 'erb'
+        path.match(/html\.?(\w+)?/)[1] || @default_engine
       end      
       
       def to_html

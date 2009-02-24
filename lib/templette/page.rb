@@ -15,8 +15,9 @@ module Templette
   # The <tt>template_name</tt> will be used to load a template.
   #
   # Everything in <tt>sections</tt> will be made available as methods in the template when
-  # it's evaluated by ERB.  Yaml hash items nested within others will be loaded into nested
-  # objects.  To call the nav title, the template should call <tt>nav.title</tt>.
+  # it's evaluated by by the rendering engine (ERB by default).  Yaml hash items nested 
+  # within others will be loaded into nested objects.  To call the nav title, the template 
+  # should call <tt>nav.title</tt>.
   
   class Page
 

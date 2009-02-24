@@ -1,7 +1,7 @@
 require 'erb'
 
 module Templette
-  # Loads a template and evaluates it with ERB.  When a missing method is found, 
+  # Loads a template and evaluates it.  When a missing method is found, 
   # MethodColletor loads that method into a hash, to be rendered as yaml.
   class MethodCollector
     include Templette::DataAccessors
