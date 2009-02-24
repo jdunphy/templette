@@ -8,6 +8,14 @@ class EngineerTest < Test::Unit::TestCase
     assert_equal 'haml', Templette::Engineer.determine_type("foo.html.haml")
   end
   
+  def test_should_honor_site_preference_for_default_engine
+    prev_default_engine = Templette::config[:default_engine]
+    Templette::config[:default_engine] = 'haml'
+    assert_equal 'haml', Templette::Engineer.determine_type("foo.html")
+  ensure
+    Templette::config[:default_engine] = prev_default_engine
+  end
+  
   def test_should_load_erb_engine
     assert !defined?(Templette::Engines::Erb)
     engine = Templette::Engineer.engine_for('erb')
