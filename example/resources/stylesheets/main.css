@@ -1,0 +1,27 @@
+body { 
+  font-size: 90%;
+  width: 750px;
+  padding: 25px;
+  font-family: arial;
+}
+
+.nav {
+  font-size: 1.2em;
+  line-height: 2em;
+  font-weight: bold;
+}
+
+.nav a {
+  border: 1px solid #eee;
+  color: #666;
+  padding: 3px;
+}
+
+.nav a:hover {
+  background-color: #eee;
+}
+
+.footer {
+  border-top: 1px dotted #eee;
+  font-size: 0.9em;
+}

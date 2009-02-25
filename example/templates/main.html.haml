@@ -2,11 +2,13 @@
 %html
   %head
     %title Templette
+    = stylesheet_tag 'main', :rel => 'stylesheet', :media => 'all'
   %body
     %h1 Templette
     .nav
       %a{:href=>'/'} Templette
       %a{:href=>'/rdoc'}Rdoc
+      %a{:href=>'http://github.com/jdunphy/templette'}Source
     .content= body
     .footer
       Last updated: 
