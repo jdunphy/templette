@@ -10,9 +10,11 @@ class HelpersTest < Test::Unit::TestCase
   end
 
   def test_stylesheet_tag
-    assert_equal "<link href='/stylesheets/main.css' type='text/css' />", stylesheet_tag('main')
-    assert_match "media='screen'", stylesheet_tag('main', :media => 'screen')
-    assert_match "type='text/css'", stylesheet_tag('main', :media => 'screen')
+    assert_match "<link href='/stylesheets/main.css'", stylesheet_tag('main')
+    assert_match "rel='stylesheet'", stylesheet_tag('main')
+    assert_match "media='screen'", stylesheet_tag('main')
+    assert_match "media='print'", stylesheet_tag('main', :media => 'print')
+    assert_match "type='text/css'", stylesheet_tag('main', :media => 'print')
   end
 
   def test_script_tag
@@ -27,7 +29,7 @@ class HelpersTest < Test::Unit::TestCase
     end
   
     should "affect stylesheet tag" do
-      assert_equal "<link href='/subdir/stylesheets/main.css' type='text/css' />", stylesheet_tag('main')
+      assert_match "<link href='/subdir/stylesheets/main.css'", stylesheet_tag('main')
     end
   
     should "affect javascript tag" do
@@ -40,13 +42,13 @@ class HelpersTest < Test::Unit::TestCase
 
   def test_tags_with_http_protocol_dont_get_modified
     assert_equal "<img src='http://foo.com/images/foo.jpg' alt='foo' />", image_tag('http://foo.com/images/foo.jpg', :alt => 'foo')
-    assert_equal "<link href='http://foo.com/stylesheets/main.css' type='text/css' />", stylesheet_tag('http://foo.com/stylesheets/main.css')
+    assert_match "<link href='http://foo.com/stylesheets/main.css'", stylesheet_tag('http://foo.com/stylesheets/main.css')
     assert_equal "<script src='http://foo.com/lib.js' type='text/javascript'></script>", script_tag('http://foo.com/lib.js')
   end
   
   def test_tags_with_https_protocol_dont_get_modified
     assert_equal "<img src='https://foo.com/images/foo.jpg' alt='foo' />", image_tag('https://foo.com/images/foo.jpg', :alt => 'foo')
-    assert_equal "<link href='https://foo.com/stylesheets/main.css' type='text/css' />", stylesheet_tag('https://foo.com/stylesheets/main.css')
+    assert_match "<link href='https://foo.com/stylesheets/main.css'", stylesheet_tag('https://foo.com/stylesheets/main.css')
     assert_equal "<script src='https://foo.com/lib.js' type='text/javascript'></script>", script_tag('https://foo.com/lib.js')
   end
   

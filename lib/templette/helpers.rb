@@ -21,14 +21,14 @@ module Templette
       "<img src='#{tag_path(path, 'images')}' #{params_to_attributes(options)}/>"
     end
     
-    # Generates a link to a stylesheet.  Default options {:type => 'text/css'}
+    # Generates a link to a stylesheet.  Default options {:type => 'text/css', :rel => 'stylesheet'}
     # 
     # Ex. 
     #    stylesheet_tag('print', :media => 'print')
     #    => "<link href='/stylesheets/print.css' media='print' type='text/css' />"
     
     def stylesheet_tag(path, options = {})
-      options = {:type => 'text/css'}.merge(options)
+      options = {:type => 'text/css', :rel => 'stylesheet', :media => 'screen'}.merge(options)
       "<link href='#{tag_path(path, 'stylesheets', 'css')}' #{params_to_attributes(options)}/>"
     end
     
