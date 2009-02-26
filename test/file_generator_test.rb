@@ -3,6 +3,28 @@ require GEM_ROOT + '/lib/file_generator'
 
 class FileGeneratorTest < Test::Unit::TestCase
   
+  def self.should_generate_yaml_file
+    should "generate yaml file" do
+      assert File.exists?(@file_path)
+    end
+  end
+  
+  def self.should_have_template_name(name)
+    should "have template name" do
+      page_yaml = YAML.load_file(@file_path)
+      assert_equal name, page_yaml['template_name']
+    end
+  end
+  
+  def self.should_include_generated_yaml
+    should "generate expected yaml file" do
+      page_yaml = YAML.load_file(@file_path)
+      assert_not_nil page_yaml['sections']
+      assert page_yaml['sections'].kind_of?(Hash)
+      assert page_yaml['sections']['title'].kind_of?(Hash)
+    end
+  end
+  
   context "generating a helper" do
     setup do
       @file_path = TEST_ROOT + '/helpers/foo_helper.rb'
@@ -20,41 +42,41 @@ class FileGeneratorTest < Test::Unit::TestCase
     end
   end
   
-  def test_should_generate_page_yaml_file
-    file_path = TEST_ROOT + '/pages/test.yml'
-    FileGenerator.page_yaml('main', 'test')
-    assert File.exists?(file_path)
-  ensure
-    FileUtils.rm(file_path) if File.exists?(file_path)  
-  end
-  
-  def test_generated_page_should_include_generated_yaml
-    file_path = TEST_ROOT + '/pages/test.yml'
-    FileGenerator.page_yaml('main', 'test')
-    page_yaml = YAML.load_file(file_path)
-    assert_not_nil page_yaml['sections']
-    assert page_yaml['sections'].kind_of?(Hash)
-    assert page_yaml['sections']['title'].kind_of?(Hash)
-  ensure
-    FileUtils.rm(file_path) if File.exists?(file_path)  
-  end
-  
-  def test_generate_page_should_include_template_name
-    file_path = TEST_ROOT + '/pages/test.yml'
-    FileGenerator.page_yaml('main', 'test')
-    page_yaml = YAML.load_file(file_path)
-    assert_equal 'main', page_yaml['template_name']
-  ensure
-    FileUtils.rm(file_path) if File.exists?(file_path)    
-  end
-  
-  def test_generate_page_should_handle_directory_depth
-    file_path = TEST_ROOT + '/pages/new-subdir/test.yml'
-    FileGenerator.page_yaml('main', 'new-subdir/test')
-    assert File.exists?(file_path)
-  ensure  
-    FileUtils.rm(file_path) if File.exists?(file_path)
-    FileUtils.rm_rf(TEST_ROOT + '/pages/new-subdir') 
+  context "generating page yaml" do
+
+    teardown { FileUtils.rm(@file_path) if File.exists?(@file_path) }
+    
+    context "with a simple case" do
+      setup do
+        @file_path = TEST_ROOT + '/pages/test.yml'
+        FileGenerator.page_yaml('main', 'test')
+      end
+      should_generate_yaml_file
+      should_have_template_name('main')
+      should_include_generated_yaml
+    end    
+    
+    context "with a subdirectory" do
+      setup do
+        @file_path = TEST_ROOT + '/pages/new-subdir/test.yml'
+        FileGenerator.page_yaml('main', 'new-subdir/test')
+      end
+      should_generate_yaml_file
+      should_have_template_name('main')
+      should_include_generated_yaml
+      
+      teardown { FileUtils.rm_rf(TEST_ROOT + '/pages/new-subdir') }
+    end
+    
+    context "with haml" do
+      setup do
+        @file_path = TEST_ROOT + '/pages/hammy-test.yml'
+        FileGenerator.page_yaml('hammy', 'hammy-test')
+      end
+      should_generate_yaml_file
+      should_have_template_name('hammy')
+      should_include_generated_yaml
+    end
   end
   
   context "generating a config file" do
@@ -65,6 +87,7 @@ class FileGeneratorTest < Test::Unit::TestCase
       FileGenerator.config
       assert File.exists?(@file_path)
       assert_match /# Templette::config\[:site_root\] =/, File.read(@file_path)
+      assert_match /# Templette::config\[:default_engine\] =/, File.read(@file_path)
     end
     
     should "not overwrite an existing config file" do
