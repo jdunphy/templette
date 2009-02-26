@@ -3,20 +3,16 @@ require GEM_ROOT + '/lib/file_generator'
 
 class FileGeneratorTest < Test::Unit::TestCase
   
-  def self.should_generate_yaml_file
+  def self.should_generate_yaml_file(name)
     should "generate yaml file" do
       assert File.exists?(@file_path)
     end
-  end
-  
-  def self.should_have_template_name(name)
+
     should "have template name" do
       page_yaml = YAML.load_file(@file_path)
       assert_equal name, page_yaml['template_name']
     end
-  end
-  
-  def self.should_include_generated_yaml
+
     should "generate expected yaml file" do
       page_yaml = YAML.load_file(@file_path)
       assert_not_nil page_yaml['sections']
@@ -51,9 +47,7 @@ class FileGeneratorTest < Test::Unit::TestCase
         @file_path = TEST_ROOT + '/pages/test.yml'
         FileGenerator.page_yaml('main', 'test')
       end
-      should_generate_yaml_file
-      should_have_template_name('main')
-      should_include_generated_yaml
+      should_generate_yaml_file('main')
     end    
     
     context "with a subdirectory" do
@@ -61,9 +55,7 @@ class FileGeneratorTest < Test::Unit::TestCase
         @file_path = TEST_ROOT + '/pages/new-subdir/test.yml'
         FileGenerator.page_yaml('main', 'new-subdir/test')
       end
-      should_generate_yaml_file
-      should_have_template_name('main')
-      should_include_generated_yaml
+      should_generate_yaml_file('main')
       
       teardown { FileUtils.rm_rf(TEST_ROOT + '/pages/new-subdir') }
     end
@@ -73,9 +65,7 @@ class FileGeneratorTest < Test::Unit::TestCase
         @file_path = TEST_ROOT + '/pages/hammy-test.yml'
         FileGenerator.page_yaml('hammy', 'hammy-test')
       end
-      should_generate_yaml_file
-      should_have_template_name('hammy')
-      should_include_generated_yaml
+      should_generate_yaml_file('hammy')
     end
   end
   
