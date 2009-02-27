@@ -62,7 +62,9 @@ module Templette
       end
     end
     
-    def _binding; binding; end
+    def _binding # :nodoc:
+      binding
+    end
 
     # A requriement of the Templette::DataAccessors interface.  Returns self.
     def page; self end
