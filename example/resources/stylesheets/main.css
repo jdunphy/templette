@@ -21,6 +21,11 @@ body {
   background-color: #eee;
 }
 
+.smallnav a {
+  color: #666;
+  font-size: 1em;
+}
+
 .footer {
   border-top: 1px dotted #eee;
   font-size: 0.9em;
