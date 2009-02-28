@@ -40,7 +40,7 @@ end
 
 desc 'Generate documentation for templette.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'doc'
+  rdoc.rdoc_dir = 'example/resources/rdoc'
   rdoc.title    = 'Templette'
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('README.rdoc')
