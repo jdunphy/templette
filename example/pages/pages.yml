@@ -1,4 +1,4 @@
 --- 
 sections: 
-  body: 
+  body: render pages/pages.html.haml
 template_name: main

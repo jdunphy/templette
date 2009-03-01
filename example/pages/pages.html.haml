@@ -1,0 +1,16 @@
+%h2 Pages
+%p Pages, at their simplest, are just chuncks of yaml.  This is the yaml file for this page.
+%pre
+  :plain
+  
+    ---
+    sections: 
+      body: render pages/pages.html.haml
+    template_name: main
+
+%p It describes the main aspects of the page.
+
+%h3 template_name
+%p 
+  This page expects that there will be a template named main within the project.
+  This will be the template used for rendering the html.
