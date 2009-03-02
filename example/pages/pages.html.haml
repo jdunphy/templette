@@ -1,12 +1,7 @@
 %h2 Pages
 %p Pages, at their simplest, are just chuncks of yaml.  This is the yaml file for this page.
-%pre
-  :plain
-  
-    ---
-    sections: 
-      body: render pages/pages.html.haml
-    template_name: main
+
+.snippet= display_file('pages/pages.yml')
 
 %p It describes the main aspects of the page.
 

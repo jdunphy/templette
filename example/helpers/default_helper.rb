@@ -8,4 +8,10 @@ module DefaultHelper
   def current_year
     Time.now.year
   end
+  
+  def display_file(path)
+    "<pre>
+#{File.read(path)}
+      </pre>"
+  end
 end
