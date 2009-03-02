@@ -1,11 +1,18 @@
 %h2 Pages
-%p Pages, at their simplest, are just chuncks of yaml.  This is the yaml file for this page.
+%p 
+  Pages, at their simplest, are just chuncks of yaml. 
+  It describes the main aspects of the page. 
+  This is the yaml file for this page.
 
 .snippet= display_file('pages/pages.yml')
-
-%p It describes the main aspects of the page.
 
 %h3 template_name
 %p 
   This page expects that there will be a template named main within the project.
   This will be the template used for rendering the html.
+  
+%h3 sections
+%p
+  Content listed under sections are made available as methods when the page/template is rendered.
+  In this case, the template makes a method call for #body, which is why the template has a corresponding key/value pair.
+  Body calls render on a piece of haml, which is the returned value for the method.
