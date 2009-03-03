@@ -138,6 +138,28 @@ class PageTest < Test::Unit::TestCase
     File.delete(output_file) if File.exists?(output_file)
   end
   
+  def test_render_without_pages_subdir_works
+    FileUtils.mkdir('out') unless File.exists?('out')
+    set_pages_dir 'test_data'
+    output_file = 'out/template_with_render.html'
+    YAML.expects(:load_file).with('test_data/template_with_render.yml').returns(
+    {
+      'template_name' => 'hammy',
+      'sections' => {
+        'title' => { 'text' => 'Home' },
+        'main' =>  { 'content' => 'render hammy.html.haml' }
+       }
+     }
+    )
+    page = Templette::Page.new('test_data/template_with_render.yml')
+    page.generate('out')
+    assert File.exists?(output_file), 'output file was not generated'
+    assert_match '<p>I am some haml!</p>', File.read(output_file)
+    
+  ensure
+    File.delete(output_file) if File.exists?(output_file)  
+  end
+  
   def test_rendering_with_methods_in_rendered_partials
     FileUtils.mkdir('out') unless File.exists?('out')
     set_pages_dir 'test_data'

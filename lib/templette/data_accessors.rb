@@ -19,13 +19,21 @@ module Templette
     end
     
     def partial(filename) # :nodoc:
-      raise PageError.new(page, "Rendering #{filename} failed.  File not found.") unless File.exists?(filename)
-      Engineer.engine_for(Engineer.determine_type(filename)).render(File.read(filename), page._binding)
+      raise PageError.new(page, "Rendering #{partial_path(filename)} failed.  File not found.") unless File.exists?(partial_path(filename))
+      Engineer.engine_for(Engineer.determine_type(filename)).render(File.read(partial_path(filename)), page._binding)
     rescue RenderError => e
       raise PageError.new(page, e.message)      
     end
     
     private
+    
+      def partial_path(filename)
+        if filename =~ Regexp.new(Page::pages_dir)
+          filename
+        else
+          Page::pages_dir + "/" + filename
+        end
+      end
     
       def generate_accessor(k, v)
         raise TempletteError.new(page, "Method already defined: #{k}.  Change your config file and stop using it!") if self.methods.include?(k.to_s)
