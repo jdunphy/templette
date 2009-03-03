@@ -31,7 +31,7 @@ module Templette
         if filename =~ Regexp.new(Page::pages_dir)
           filename
         else
-          Page::pages_dir + "/" + filename
+          Page::pages_dir + filename
         end
       end
     
