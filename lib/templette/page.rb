@@ -24,9 +24,11 @@ module Templette
     include Templette::DataAccessors
     attr_reader :name, :template
     
+    PAGES_DEFAULT = 'pages/'
+    
     class <<self
       def pages_dir
-        @@pages_dir ||= 'pages'
+        @@pages_dir ||= PAGES_DEFAULT
       end
       
       def pages_dir=(path)
@@ -36,7 +38,7 @@ module Templette
       # Grabs all of the yaml files found in /pages, and loads them as
       # Page objects.
       def find_all
-        Dir["#{pages_dir}/**/*.yml"].map {|f| new f }
+        Dir["#{pages_dir}**/*.yml"].map {|f| new f }
       end
     end
   
@@ -45,7 +47,7 @@ module Templette
 
       data = YAML::load_file(page_config)
       @name = page_config.dup
-      @name.slice!(self.class.pages_dir + '/')
+      @name.slice!(self.class.pages_dir)
       @name.chomp!('.yml')
       raise PageError.new(self, "missing required section \"template_name\" for page config #{page_config}") unless data['template_name']
       @template = Template.new(data['template_name'])

@@ -32,6 +32,6 @@ class Test::Unit::TestCase
     end
 
     def reset_pages_dir
-      Templette::Page.pages_dir = 'pages'
+      Templette::Page.pages_dir = Templette::Page::PAGES_DEFAULT
     end    
 end
