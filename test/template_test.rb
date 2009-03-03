@@ -42,6 +42,15 @@ class TemplateTest < Test::Unit::TestCase
     assert t.helpers.include?('default_helper')
   end
   
+  def test_should_return_file_type
+    assert_equal 'html', Templette::Template.new('dynamic').file_type
+    assert_equal 'xml', Templette::Template.new('gadget').file_type
+  end
+  
+  def test_should_drop_template_type_from_file_type
+    assert_equal 'html', Templette::Template.new('hammy').file_type
+  end
+    
   protected
     def assert_generated_hash_has_keys(source, test_data)
       test_data.each_pair do |k, v|

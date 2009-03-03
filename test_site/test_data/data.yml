@@ -1,0 +1,4 @@
+template_name: gadget
+sections:
+  main:
+   html: <h1>Hello World!</h1>

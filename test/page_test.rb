@@ -224,6 +224,23 @@ class PageTest < Test::Unit::TestCase
     File.delete(output_file) if File.exists?(output_file)
   end
   
+  def test_generate_page_with_xml_template
+    FileUtils.mkdir('out') unless File.exists?('out')
+    set_pages_dir 'test_data/'
+    output_file = 'out/data.xml'
+    page = Templette::Page.new('test_data/data.yml')
+    page.generate('out')
+    assert File.exists?(output_file), 'output file was not generated'
+    file_content = File.open(output_file) {|f| f.read}
+    assert_match '<?xml', file_content
+    assert_match '<Module>', file_content
+    assert_match '<html>', file_content
+    assert_match '</html>', file_content
+    assert_match '<h1>Hello World!</h1>', file_content
+  ensure
+    File.delete(output_file) if File.exists?(output_file)
+  end
+  
   def test_pages_dir_default
     assert_equal 'pages/', Templette::Page.pages_dir
   end

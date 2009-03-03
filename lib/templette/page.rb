@@ -74,7 +74,7 @@ module Templette
     private
 
       def output_file_name(out_dir)
-        "#{out_dir}/#{@name}.html"
+        "#{out_dir}/#{@name}.#{@template.file_type}"
       end
     
       def generate_subdirectory(out_dir)

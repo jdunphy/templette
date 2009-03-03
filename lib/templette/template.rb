@@ -38,14 +38,36 @@ module Templette
       raise TemplateError.new(self, e.message)
     end
 
+    def file_type
+      parts = path.split('.')
+      extensions = []
+      found_name = false
+      # don't want to just re-join parts[1..parts.length], because a . in a dir name will cause incorrect results
+      parts.each do |p|
+        if found_name
+          extensions << p unless p == type
+        else
+          found_name = (p =~ /#{@name}$/)
+        end
+      end
+      extensions.join('.')
+    end
+
     private
 
       def path
-        Dir["#{TEMPLATE_DIR}/#{@name}.html*"].first || ''
+        @path ||= (Dir["#{TEMPLATE_DIR}/#{@name}.*"].first || '')
       end
       
       def type
-        path.match(/html\.?(\w+)?/)[1] || @default_engine
+        name_parts = path.split('.')
+        # logic: if we saw a filename like x.<type>.<engine>, then the last item is the type of engine to use
+        # otherwise, we assume it was of the form x.<type>, and should use the default engine
+        if name_parts.length >= 3
+          name_parts.last
+        else
+          @default_engine
+        end
       end      
       
       def to_html

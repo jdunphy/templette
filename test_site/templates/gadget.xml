@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs
+    title="Test Gadget"
+    height="55"
+    description="Simple gadget for testing"
+    author="Steve Holder"
+    author_email="steve.holder@gmail.com">
+    <Require feature="dynamic-height" />
+  </ModulePrefs>
+    <Content type="html">
+      <![CDATA[
+  <html>
+  <head>
+    <body>
+      <%= main.html %>
+    </body>
+  </html>
+]]></Content>
+  
+</Module>
