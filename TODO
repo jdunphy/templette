@@ -1,1 +1,2 @@
 * Example info site
+* Allow generation of non-html files (xml, etc. - right now an .html suffix on generated files seems to be assumed)
