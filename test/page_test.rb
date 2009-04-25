@@ -61,7 +61,9 @@ class PageTest < Test::Unit::TestCase
   def test_find_all_pages
      pages = Templette::Page.find_all
      assert_equal 2, pages.length
-     assert_equal 'Home', pages.first.title.text
+     page_names = pages.map { |p| p.title.text }
+     assert page_names.include? 'Home'
+     assert page_names.include? 'Subdir Home'
   end       
   
   def test_find_all_pages_handles_recursive_directories
