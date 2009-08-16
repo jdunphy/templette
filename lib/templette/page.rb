@@ -26,7 +26,7 @@ module Templette
     
     PAGES_DEFAULT = 'pages/'
     
-    class <<self
+    class << self
       def pages_dir
         @@pages_dir ||= PAGES_DEFAULT
       end
